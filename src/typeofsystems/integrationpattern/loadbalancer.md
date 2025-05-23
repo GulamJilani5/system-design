@@ -5,19 +5,19 @@
 →
 ⁕
 # Two Main Category Of Load Balancer
-  ### Deployment Location = Internal or External
+ ### ➡️1. Deployment Location = Internal or External
     → Focused on where the load balancer operates in your network.
 
    ##### External Load Balancer
      •Placed in front of the API Gateway or microservices directly.
      •Distributes incoming client traffic across multiple instances of the API Gateway or frontend service.
      •Common tools: AWS ELB/ALB, NGINX, HAProxy, Cloud Load Balancers.
-     ####### **Flow:** Client ──► Load Balancer ──► API Gateway ──► Microservices.
+   **Flow:** Client ──► Load Balancer ──► API Gateway ──► Microservices.
 
    ##### Internal Load Balancer
     •Used when one microservice calls another.
     •Distributes traffic across multiple instances of a target service.
-    ####### **Flow:** Service A ──► Internal Load Balancer ──► Service B (multiple instances)
+   **Flow:** Service A ──► Internal Load Balancer ──► Service B (multiple instances)
 
 | **Type**                   | **Description**                                                           | **Use Case**                                            | **Decision Made By**                          | **Tools/Examples**                                                                |
 | -------------------------- | ------------------------------------------------------------------------- | ------------------------------------------------------- | --------------------------------------------- | --------------------------------------------------------------------------------- |
@@ -25,7 +25,7 @@
 | **Internal Load Balancer** | Load balancer used **within private network** (VPC, data center, cluster) | Route traffic **between microservices** (internal-only) | Load balancer, sidecar proxy, or client logic | AWS NLB (internal), NGINX (inside VPC), Istio (Envoy), Ribbon, Kubernetes Service |
 
 
-  ### Routing Mechanism = Who decides where traffic goes
+ ### ➡️ 2. Routing Mechanism = Who decides where traffic goes
     → Focused on how traffic routing decisions are made.
 | **Type**                       | **Description**                                                                                                    | **Use Case**                                                              | **Decision Made By**              | **Tools/Examples**                                            |
 | ------------------------------ | ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------- | --------------------------------- | ------------------------------------------------------------- |
