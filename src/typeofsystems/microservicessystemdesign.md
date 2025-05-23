@@ -51,11 +51,11 @@
 
 ### 🧩 6. Observability Patterns
     Purpose: Enable monitoring, tracing, and debugging.
-| Pattern                 | Description                                                          |
-| ----------------------- | -------------------------------------------------------------------- |
-| **Log Aggregation**     | Centralized logging system (e.g., ELK Stack).                        |
-| **Distributed Tracing** | Trace a request across multiple services (e.g., Jaeger, Zipkin).     |
-| **Metrics Collection**  | Monitor service health and performance (e.g., Prometheus + Grafana). |
+| Pattern                 | Description                                                                     |
+| ----------------------- |---------------------------------------------------------------------------------|
+| **Log Aggregation**     | Centralized logging system (e.g., ELK Stack,Splunk).                            |
+| **Distributed Tracing** | Trace a request across multiple services (e.g., Jaeger, Zipkin).                |
+| **Metrics Collection**  | Monitor service health and performance (e.g., Prometheus + Grafana, Dynatrace). |
 
 ### 🔐 7. Security Patterns
     Purpose: Secure communication and access.
