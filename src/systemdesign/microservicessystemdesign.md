@@ -12,11 +12,12 @@
 
 ### 🔁 2. Integration Patterns
     Purpose: Manage communication between services.
-| Pattern                        | Description                                                                                                                     |
-| ------------------------------ | ------------------------------------------------------------------------------------------------------------------------------- |
+| Pattern                        | Description                                                                                                                    |
+|--------------------------------|--------------------------------------------------------------------------------------------------------------------------------|
 | **API Gateway**                | Central entry point that routes requests to appropriate microservices and handles cross-cutting concerns (auth, rate limiting). |
-| **Backend for Frontend (BFF)** | Custom APIs for each type of frontend (mobile, web), improving performance and maintainability.                                 |
-| **Service Mesh**               | Infrastructure layer for handling service-to-service communication, security, and observability (e.g., Istio, Linkerd).         |
+| **Backend for Frontend (BFF)** | Custom APIs for each type of frontend (mobile, web), improving performance and maintainability.                                |
+| **Service Mesh**               | Infrastructure layer for handling service-to-service communication, security, and observability (e.g., Istio, Linkerd).        |
+| **Load Balancer** 	            | Distributes network traffic across multiple service instances to ensure availability and reliability.                          |
 
 ### 📡 3. Communication Patterns
     Purpose: Define how microservices communicate.
@@ -40,7 +41,6 @@
 
 ### 🔄 5. Reliability Patterns
     Purpose: Ensure system resilience and fault tolerance.
-🔄 5. Reliability Patterns
 | Pattern             | Description                                                              |
 | ------------------- | ------------------------------------------------------------------------ |
 | **Circuit Breaker** | Prevent cascading failures by cutting off access to a failing service.   |
