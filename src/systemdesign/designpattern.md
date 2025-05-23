@@ -8,7 +8,7 @@
 # 🔨 Creational Design Patterns
      Purpose: Deal with object creation mechanisms, trying to create objects in a manner suitable to the situation.
 
-    | Pattern              | Description                                                                                                         | Example Use Case                                              |
+| Pattern              | Description                                                                                                         | Example Use Case                                              |
 | -------------------- | ------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------- |
 | **Singleton**        | Ensures a class has only one instance and provides a global point of access to it.                                  | Configuration manager, logger                                 |
 | **Factory Method**   | Provides an interface for creating objects but allows subclasses to alter the type of objects that will be created. | Document creator for different formats (PDF, DOCX)            |
