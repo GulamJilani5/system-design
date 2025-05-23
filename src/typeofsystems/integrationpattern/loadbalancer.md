@@ -32,12 +32,13 @@
         →The client looks up service instances from service discovery
         →It then chooses which instance to send the request to
         →No central load balancer in between
-    📦 Examples:
+
+   **📦 Examples:**
             •Netflix Ribbon + Eureka
             •gRPC with round-robin logic
             •Spring Cloud LoadBalancer
 
-    🔍 Used When:
+   **🔍 Used When:**
             •You want lightweight, decentralized balancing.
             •You control the client-side logic.
             •No need for complex routing or observability.
@@ -47,10 +48,10 @@
         →The proxy/load balancer decides which instance to route to.
         →Clients only see the load balancer, not the actual services.
 
-    📦 Examples:
+   **📦 Examples:**
          NGINX, HAProxy, AWS ELB/ALB, Kubernetes Services, API Gateway
 
-    🔍 Used When:
+   **🔍 Used When:**
         •Centralized control of traffic.
         •Front-door to external traffic.
         •Load balancing + TLS termination, rate limiting, etc.
@@ -64,11 +65,11 @@
         •Security (mTLS)
         •Observability (metrics/traces)
     
-    📦 Examples:
+   **📦 Examples:**
         •Istio (Envoy sidecar)
         •Linkerd, Consul Connect
 
-    🔍 Used When:
+ 🔍 **Used When:**
         •You need full control, reliability, and observability for internal communication
         •You want to separate business logic from networking logic
         •You’re operating at Kubernetes scale
