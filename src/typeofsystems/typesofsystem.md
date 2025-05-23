@@ -47,5 +47,6 @@
   ### 14. Design a Social Network Feed (Facebook/ Instagram)
      → Dive into fanout strategies and feed generation (Push vs Pull).
      → Talk about timeline ranking, pagination, and denormalized DB design.
-  ### 15. Design a Product Catalog (eCommerce) → Cover search indexing, filters, and faceted navigation.
+  ### 15. Design a Product Catalog (eCommerce) 
+     → Cover search indexing, filters, and faceted navigation.
      → Focus on read-optimized DB design and availability under load.
