@@ -5,16 +5,16 @@
 →
 ⁕
 # Two Main Category Of Load Balancer
- ### ➡️1. Deployment Location = Internal or External
+ ## ➡️1. Deployment Location = Internal or External
     → Focused on where the load balancer operates in your network.
 
-   ##### External Load Balancer
+   #### External Load Balancer
      •Placed in front of the API Gateway or microservices directly.
      •Distributes incoming client traffic across multiple instances of the API Gateway or frontend service.
      •Common tools: AWS ELB/ALB, NGINX, HAProxy, Cloud Load Balancers.
    **Flow:** Client ──► Load Balancer ──► API Gateway ──► Microservices.
 
-   ##### Internal Load Balancer
+   #### Internal Load Balancer
     •Used when one microservice calls another.
     •Distributes traffic across multiple instances of a target service.
    **Flow:** Service A ──► Internal Load Balancer ──► Service B (multiple instances)
@@ -25,15 +25,15 @@
 | **Internal Load Balancer** | Load balancer used **within private network** (VPC, data center, cluster) | Route traffic **between microservices** (internal-only) | Load balancer, sidecar proxy, or client logic | AWS NLB (internal), NGINX (inside VPC), Istio (Envoy), Ribbon, Kubernetes Service |
 
 
- ### ➡️ 2. Routing Mechanism = Who decides where traffic goes
+ ## ➡️ 2. Routing Mechanism = Who decides where traffic goes
     → Focused on how traffic routing decisions are made.
 
- ##### Client-side Load Balancer
+ #### Client-side Load Balancer
         →The client looks up service instances from service discovery
         →It then chooses which instance to send the request to
         →No central load balancer in between
 
-   **📦 Examples:**
+  **📦 Examples:**
             •Netflix Ribbon + Eureka
             •gRPC with round-robin logic
             •Spring Cloud LoadBalancer
@@ -43,7 +43,7 @@
             •You control the client-side logic.
             •No need for complex routing or observability.
 
-  ##### Server-side Load Balancer
+  #### Server-side Load Balancer
         →A reverse proxy or gateway sits between the client and services.
         →The proxy/load balancer decides which instance to route to.
         →Clients only see the load balancer, not the actual services.
@@ -56,7 +56,7 @@
         •Front-door to external traffic.
         •Load balancing + TLS termination, rate limiting, etc.
 
-  ##### Service Mesh Load Balancer
+  #### Service Mesh Load Balancer
      →Each service has a sidecar proxy (like Envoy) next to it.
      →Requests are routed via these sidecars, which also handle:
         •Load balancing
