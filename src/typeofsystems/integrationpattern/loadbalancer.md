@@ -8,13 +8,13 @@
  ## ➡️1. Deployment Location = Internal or External
     → Focused on where the load balancer operates in your network.
 
-   #### External Load Balancer
+   #### 🔵 External Load Balancer
      •Placed in front of the API Gateway or microservices directly.
      •Distributes incoming client traffic across multiple instances of the API Gateway or frontend service.
      •Common tools: AWS ELB/ALB, NGINX, HAProxy, Cloud Load Balancers.
    **Flow:** Client ──► Load Balancer ──► API Gateway ──► Microservices.
 
-   #### Internal Load Balancer
+   #### 🔵 Internal Load Balancer
     •Used when one microservice calls another.
     •Distributes traffic across multiple instances of a target service.
    **Flow:** Service A ──► Internal Load Balancer ──► Service B (multiple instances)
@@ -26,7 +26,7 @@
 
 ## ➡️2.Traffic Routing Mechanism
 
-#### Client-side Load Balancer
+#### 🔵 Client-side Load Balancer
 - The client looks up service instances from service discovery
 - It then chooses which instance to send the request to
 - No central load balancer in between
@@ -40,9 +40,19 @@
 - You want lightweight, decentralized balancing
 - You control the client-side logic
 - No need for complex routing or observability
+  **Flow:**
+- Client (Service A)
+  │
+  ├─► Queries Service Discovery (e.g., Eureka)
+  │
+  └─► Picks an instance itself using load balancing logic (e.g., round robin)
+  ↓
+  ┌──────────────────────────────┐
+  │   Service B Instance (e.g., B1)   │
+  └──────────────────────────────┘
+- 🧠 Routing logic is inside the client — no external proxy or load balancer.
 
-
-#### Server-side Load Balancer
+#### 🔵 Server-side Load Balancer
   - A reverse proxy or gateway sits between the client and services.
   - The proxy/load balancer decides which instance to route to.
   - Clients only see the load balancer, not the actual services.
@@ -54,15 +64,24 @@
    - •Centralized control of traffic.
    - •Front-door to external traffic.
    - •Load balancing + TLS termination, rate limiting, etc.
-
-  #### Service Mesh Load Balancer
+     **Flow:**
+     Client (Service A or External User)
+     │
+     └─► Sends request to Central Load Balancer (e.g., NGINX / ELB)
+     │
+     ├─► Service B - Instance 1
+     ├─► Service B - Instance 2
+     └─► Service B - Instance 3
+  - 🧠 Load balancer (proxy or gateway) chooses which backend instance to send the request to.
+  #### 🔵 Service Mesh Load Balancer
    - →Each service has a sidecar proxy (like Envoy) next to it.
+   - →🔁 Service Mesh = Advanced Internal Load Balancer + more
    - →Requests are routed via these sidecars, which also handle:
- - •Load balancing
- - •Retries, timeouts
- - •Circuit breaking
- - •Security (mTLS)
- - •Observability (metrics/traces)
+     - •Load balancing
+     - •Retries, timeouts
+     - •Circuit breaking
+     - •Security (mTLS)
+     - •Observability (metrics/traces)
     
 **📦 Examples:**
 - •Istio (Envoy sidecar)
@@ -72,6 +91,24 @@
   - •You need full control, reliability, and observability for internal communication
   - •You want to separate business logic from networking logic
   - •You’re operating at Kubernetes scale
+  **Flow:**  Service A → Envoy A → Envoy B → Service B
+  - The Envoy proxy does:
+  -  Internal Load Balancing to Service B instances
+  -  Automatic retries
+  -  Timeouts
+  -  mTLS (encryption)
+  -  Observability (logs/traces/metrics)
+     **Flow:** 
+  - Service A
+     │
+     └─► Sends request to its local sidecar proxy (Envoy)
+     │
+     └─► Envoy decides and routes to:
+     │
+     ┌────────────┬────────────┐
+     │            │            │
+     Service B Sidecar → B1   B2   B3
+  - 🧠 Sidecar proxies (e.g., Envoy) handle routing, retries, observability, etc. — not the services themselves.
 
 | **Type**                       | **Description**                                                                                                    | **Use Case**                                                              | **Decision Made By**              | **Tools/Examples**                                            |
 | ------------------------------ | ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------- | --------------------------------- | ------------------------------------------------------------- |
