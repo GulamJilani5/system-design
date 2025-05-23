@@ -24,6 +24,7 @@
 | **External Load Balancer** | Load balancer exposed to the **outside world** (Internet)                 | Route incoming user traffic to backend services or APIs | Load balancer (centralized)                   | AWS ALB/ELB (public), Cloudflare, Azure Front Door, API Gateway                   |
 | **Internal Load Balancer** | Load balancer used **within private network** (VPC, data center, cluster) | Route traffic **between microservices** (internal-only) | Load balancer, sidecar proxy, or client logic | AWS NLB (internal), NGINX (inside VPC), Istio (Envoy), Ribbon, Kubernetes Service |
 
+## ➡️2.Traffic Routing Mechanism
 
 #### Client-side Load Balancer
 - The client looks up service instances from service discovery
@@ -41,36 +42,36 @@
 - No need for complex routing or observability
 
 
-  #### Server-side Load Balancer
--A reverse proxy or gateway sits between the client and services.
--The proxy/load balancer decides which instance to route to.
--Clients only see the load balancer, not the actual services.
+#### Server-side Load Balancer
+  - A reverse proxy or gateway sits between the client and services.
+  - The proxy/load balancer decides which instance to route to.
+  - Clients only see the load balancer, not the actual services.
 
    **📦 Examples:**
          - NGINX, HAProxy, AWS ELB/ALB, Kubernetes Services, API Gateway
 
    **🔍 Used When:**
-   -•Centralized control of traffic.
-   -•Front-door to external traffic.
-   -•Load balancing + TLS termination, rate limiting, etc.
+   - •Centralized control of traffic.
+   - •Front-door to external traffic.
+   - •Load balancing + TLS termination, rate limiting, etc.
 
   #### Service Mesh Load Balancer
- →Each service has a sidecar proxy (like Envoy) next to it.
- →Requests are routed via these sidecars, which also handle:
- -•Load balancing
- -•Retries, timeouts
- -•Circuit breaking
- -•Security (mTLS)
- -•Observability (metrics/traces)
+   - →Each service has a sidecar proxy (like Envoy) next to it.
+   - →Requests are routed via these sidecars, which also handle:
+ - •Load balancing
+ - •Retries, timeouts
+ - •Circuit breaking
+ - •Security (mTLS)
+ - •Observability (metrics/traces)
     
 **📦 Examples:**
--•Istio (Envoy sidecar)
--•Linkerd, Consul Connect
+- •Istio (Envoy sidecar)
+- •Linkerd, Consul Connect
 
  🔍 **Used When:**
-  -•You need full control, reliability, and observability for internal communication
-  -•You want to separate business logic from networking logic
-  -•You’re operating at Kubernetes scale
+  - •You need full control, reliability, and observability for internal communication
+  - •You want to separate business logic from networking logic
+  - •You’re operating at Kubernetes scale
 
 | **Type**                       | **Description**                                                                                                    | **Use Case**                                                              | **Decision Made By**              | **Tools/Examples**                                            |
 | ------------------------------ | ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------- | --------------------------------- | ------------------------------------------------------------- |
