@@ -10,13 +10,19 @@
 
    #### 🔵 External Load Balancer
      •Placed in front of the API Gateway or microservices directly.
-     •Distributes incoming client traffic across multiple instances of the API Gateway or frontend service.
-     •Common tools: AWS ELB/ALB, NGINX, HAProxy, Cloud Load Balancers.
+     •External load balancers are typically server-side, as they are deployed as centralized infrastructure 
+       (hardware, software, or cloud-managed services) that handle incoming traffic and distribute it to backend 
+       servers. They sit between clients and servers, managing traffic flow transparently to the client.
+     •Common Tools: AWS ELB/ALB, NGINX, HAProxy, Cloud Load Balancers.  
+   **Example:** Client Side Load Balancer
    **Flow:** Client ──► Load Balancer ──► API Gateway ──► Microservices.
 
    #### 🔵 Internal Load Balancer
     •Used when one microservice calls another.
+    •An internal load balancer distributes network traffic across multiple servers or resources within a private 
+         network ( e.g. virtual private cloud (VPC), Kubernetes Cluster).
     •Distributes traffic across multiple instances of a target service.
+   **Example:** Client-Side Load Balancing, Server Side Load Balancer, Service Mesh Load Balancer.
    **Flow:** Service A ──► Internal Load Balancer ──► Service B (multiple instances)
 
 | **Type**                   | **Description**                                                           | **Use Case**                                            | **Decision Made By**                          | **Tools/Examples**                                                                |
@@ -31,7 +37,7 @@
 - It then chooses which instance to send the request to
 - No central load balancer in between
 
-**📦 Examples:**
+**📦 Common Tools:**
 - Netflix Ribbon + Eureka
 - gRPC with round-robin logic
 - Spring Cloud LoadBalancer
@@ -45,7 +51,7 @@
   │
   ├─► Queries Service Discovery (e.g., Eureka)
   │
-  └─► Picks an instance itself using load balancing logic (e.g., round robin)
+  └─► Picks an instance itself using load balancing logic (e.g., Round Robin)
   ↓
   ┌──────────────────────────────┐
   │   Service B Instance (e.g., B1)   │
@@ -57,7 +63,7 @@
   - The proxy/load balancer decides which instance to route to.
   - Clients only see the load balancer, not the actual services.
 
-   **📦 Examples:**
+   **📦 Common Tools:**
          - NGINX, HAProxy, AWS ELB/ALB, Kubernetes Services, API Gateway
 
    **🔍 Used When:**
@@ -83,7 +89,7 @@
      - •Security (mTLS)
      - •Observability (metrics/traces)
     
-**📦 Examples:**
+**📦 Common Tools:**
 - •Istio (Envoy sidecar)
 - •Linkerd, Consul Connect
 
