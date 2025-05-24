@@ -50,8 +50,8 @@ Replaces the need for multiple **LoadBalancers**.
 - Backups.
 - Reports.
 - Periodic data processing.
-schedule: "0 0 * * *" # daily at midnight
-- 
+- schedule: "0 0 * * *" # daily at midnight
+
 # 🔁 Deployment
 A Deployment ensures that your desired number of pod replicas are running.
 
