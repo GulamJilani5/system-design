@@ -31,7 +31,7 @@
 | **Internal Load Balancer** | Load balancer used **within private network** (VPC, data center, cluster) | Route traffic **between microservices** (internal-only) | Load balancer, sidecar proxy, or client logic | AWS NLB (internal), NGINX (inside VPC), Istio (Envoy), Ribbon, Kubernetes Service |
 
 ## ➡️2.Traffic Routing Mechanism
-
+      This is how traffic is routed — based on who decides where the traffic goes.
 #### 🔵 Client-side Load Balancer
 - The client looks up service instances from service discovery
 - It then chooses which instance to send the request to
