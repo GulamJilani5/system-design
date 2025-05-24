@@ -28,7 +28,7 @@
 | **Asynchronous (Messaging/Event-Driven)** | Services communicate via message brokers (Kafka, RabbitMQ) to reduce tight coupling. |
 
 
-### 💾 4. Database Patterns
+### 💾 4. Database Patterns (Indexing, Partitioning, Replication, Sharding)
     Purpose: Handle data consistency across services.
 
 | Pattern                                             | Description                                                                        |
@@ -65,6 +65,17 @@
 | **Service-to-Service Authentication** | Secure internal traffic using mTLS or identity tokens.       |
 | **API Gateway Auth**                  | Centralized authentication and authorization at the gateway. |
 
+### 🔐 8. Caching Patterns
+
+| **Pattern**                        | **Description**                                                                                                                                                                                                                                                                                                                                                                                 |
+| ---------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Strategies**                     | Caching strategies define **what**, **when**, and **where** to cache. Common types include:<br>• **Read-through**: Cache is checked first; DB queried on miss.<br>• **Write-through**: Data written to both cache and DB.<br>• **Cache-aside (Lazy loading)**: App fetches from DB and populates cache manually.<br>• **Write-behind**: Writes go to cache and are synced to DB asynchronously. |
+| **In-Memory Caching**              | Stores cache within the **app’s memory**. Very fast but not shared across instances.<br>✅ Great for session tokens, config flags.<br>🔧 Tools: `@Cacheable` (Spring), **Caffeine**, **EhCache**, `ConcurrentHashMap`.                                                                                                                                                                           |
+| **Distributed Caching**            | Cache is **shared across services or nodes** in a cluster.<br>✅ Ideal for horizontal scalability.<br>🔧 Tools: **Redis**, **Hazelcast**, **Memcached**.                                                                                                                                                                                                                                         |
+| **CDN (Content Delivery Network)** | Caches **static resources** like HTML, CSS, JS, and images close to the user for faster delivery.<br>✅ Best for static websites, frontend assets, public APIs.<br>🔧 Tools: **Cloudflare**, **CloudFront**, **Akamai**, **Fastly**.                                                                                                                                                             |
+| **HTTP Caching**                   | Utilizes **HTTP headers** like `Cache-Control`, `ETag`, and `Expires` to cache responses on the **client or proxy** side.<br>✅ Useful for caching API GET responses or static assets.<br>🔧 Tools: Built into browsers, CDNs, reverse proxies like **Varnish**, **NGINX**.                                                                                                                      |
+| **Client-side Caching**            | Cache stored **locally in the browser or mobile device**, e.g., using **LocalStorage**, **IndexedDB**, or **Service Workers**.<br>✅ Ideal for PWA apps, offline access, reducing server calls.<br>🔧 Tools: Native browser APIs, Workbox, SWR, React Query.                                                                                                                                     |
+| **Database Query Caching**         | Frequently accessed **DB query results** are cached to reduce DB load.<br>✅ Useful for complex joins, reports, read-heavy tables.<br>🔧 Tools: **Hibernate 2nd Level Cache**, **Redis**, **MyBatis Cache**.                                                                                                                                                                                     |
 
 
 
