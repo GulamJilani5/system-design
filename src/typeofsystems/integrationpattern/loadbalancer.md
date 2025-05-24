@@ -10,10 +10,12 @@
 → Focused on where the load balancer operates in your network.
 
 #### 🔵 External Load Balancer
-    • Placed in front of the API Gateway or microservices directly.  
+    • Sits at the front end of your application, It's responsible for receiving requests from external clients
+       and directing them to the appropriate backend servers.   
     • External load balancers are typically (almost always) server-side, as they are deployed as centralized infrastructure  
-    (hardware, software, or cloud-managed services) that handle incoming traffic and distribute it to backend servers.  
-    • They sit between clients and servers, managing traffic flow transparently to the client.  
+      (hardware, software, or cloud-managed services) that handle incoming traffic and distribute it to backend servers.  
+    • They sit between clients(Internet) and servers, This means it's intercepting incoming requests and deciding 
+      which server to send them to.   
      Common Tools: AWS ELB/ALB, NGINX, HAProxy, Cloud Load Balancers.
 **Example:** Server Side Load Balancer.  
 **Flow:** `Client ──► Load Balancer ──► API Gateway ──► Microservices.`
