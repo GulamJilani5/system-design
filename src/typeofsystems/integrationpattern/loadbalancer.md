@@ -10,11 +10,11 @@
 → Focused on where the load balancer operates in your network.
 
 #### 🔵 External Load Balancer
-• Placed in front of the API Gateway or microservices directly.  
-• External load balancers are typically (almost always) server-side, as they are deployed as centralized infrastructure  
-(hardware, software, or cloud-managed services) that handle incoming traffic and distribute it to backend servers.  
-• They sit between clients and servers, managing traffic flow transparently to the client.  
-**Common Tools:** **AWS ELB/ALB**, **NGINX**, **HAProxy**, **Cloud Load Balancers**.  
+    • Placed in front of the API Gateway or microservices directly.  
+    • External load balancers are typically (almost always) server-side, as they are deployed as centralized infrastructure  
+    (hardware, software, or cloud-managed services) that handle incoming traffic and distribute it to backend servers.  
+    • They sit between clients and servers, managing traffic flow transparently to the client.  
+    **Common Tools:** **AWS ELB/ALB**, **NGINX**, **HAProxy**, **Cloud Load Balancers**.
 **Example:** Server Side Load Balancer.  
 **Flow:** `Client ──► Load Balancer ──► API Gateway ──► Microservices`
 
@@ -24,7 +24,7 @@
          network ( e.g. virtual private cloud (VPC), Kubernetes Cluster).
     •Distributes traffic across multiple instances of a target service.
 **Example:** Client-Side Load Balancing, Server Side Load Balancer, Service Mesh Load Balancer.
-**Flow:** Service A ──► Internal Load Balancer ──► Service B (multiple instances).
+**Flow:** `Service A ──► Internal Load Balancer ──► Service B (multiple instances).`
 
 | **Type**                   | **Description**                                                           | **Use Case**                                            | **Decision Made By**                          | **Tools/Examples**                                                                |
 | -------------------------- | ------------------------------------------------------------------------- | ------------------------------------------------------- | --------------------------------------------- | --------------------------------------------------------------------------------- |
