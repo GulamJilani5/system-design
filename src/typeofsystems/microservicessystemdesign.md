@@ -31,13 +31,19 @@
 ### 💾 4. Database Patterns (Indexing, Partitioning, Replication, Sharding)
     Purpose: Handle data consistency across services.
 
-| Pattern                                             | Description                                                                        |
-| --------------------------------------------------- | ---------------------------------------------------------------------------------- |
-| **Database per Service**                            | Each microservice owns its own database schema.                                    |
-| **Shared Database**                                 | Less preferred—multiple services share one database (anti-pattern for most cases). |
-| **Event Sourcing**                                  | Capture all state changes as a sequence of events.                                 |
-| **CQRS (Command Query Responsibility Segregation)** | Separate models for update (command) and read (query) operations.                  |
+| **Pattern**                                         | **Description**                                                                                                                    |
+| --------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| **Database per Service**                            | Each microservice has its **own schema or DB**. Promotes loose coupling and autonomy. Ensures data encapsulation.                  |
+| **Shared Database**                                 | Multiple services **share a single DB**. Easier integration but tightly coupled — generally an **anti-pattern**.                   |
+| **Event Sourcing**                                  | State is persisted as a **sequence of events** instead of current data only. Enables full history and rollback.                    |
+| **CQRS (Command Query Responsibility Segregation)** | Split the **write model (commands)** and the **read model (queries)** for better scalability and flexibility.                      |
+| **Indexing**                                        | Create **indexes on frequently queried columns** to optimize query performance. Crucial for large datasets.                        |
+| **Partitioning**                                    | Split large tables **horizontally (row-wise)** based on a key (e.g., user ID or region). Reduces query load.                       |
+| **Replication**                                     | Create **read replicas** of the database to balance read traffic and increase availability. Useful in read-heavy systems.          |
+| **Sharding**                                        | Distribute data across **multiple databases or DB instances** (shards), each handling a subset of data. Scales writes and storage. |
 
+   •Shared DB is often an anti-pattern in microservices. 
+   •Sharding is a scaling technique, especially used with Database per Service.
 
 ### 🔄 5. Reliability Patterns
     Purpose: Ensure system resilience and fault tolerance.
