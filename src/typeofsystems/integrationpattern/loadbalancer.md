@@ -5,18 +5,18 @@
 →
 ⁕
 # Two Main Category Of Load Balancer
- ## ➡️1. Deployment Location = Internal or External
-    → Focused on where the load balancer operates in your network.
 
-   #### 🔵 External Load Balancer
-     •Placed in front of the API Gateway or microservices directly.
-     •External load balancers are typically(almost always) server-side, as they are deployed as centralized infrastructure 
-       (hardware, software, or cloud-managed services) that handle incoming traffic and distribute it to backend 
-       servers. 
-     •They sit between clients and servers, managing traffic flow transparently to the client.
-     •Common Tools: AWS ELB/ALB, NGINX, HAProxy, Cloud Load Balancers.  
-**Example:** Server Side Load Balancer.
-**Flow:** Client ──► Load Balancer ──► API Gateway ──► Microservices.
+## ➡️1. Deployment Location = Internal or External
+→ Focused on where the load balancer operates in your network.
+
+#### 🔵 External Load Balancer
+• Placed in front of the API Gateway or microservices directly.  
+• External load balancers are typically (almost always) server-side, as they are deployed as centralized infrastructure  
+(hardware, software, or cloud-managed services) that handle incoming traffic and distribute it to backend servers.  
+• They sit between clients and servers, managing traffic flow transparently to the client.  
+**Common Tools:** **AWS ELB/ALB**, **NGINX**, **HAProxy**, **Cloud Load Balancers**.  
+**Example:** Server Side Load Balancer.  
+**Flow:** `Client ──► Load Balancer ──► API Gateway ──► Microservices`
 
    #### 🔵 Internal Load Balancer
     •Used when one microservice calls another.
