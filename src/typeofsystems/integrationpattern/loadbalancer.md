@@ -18,7 +18,7 @@
 **Example:** Server Side Load Balancer.  
 **Flow:** `Client ──► Load Balancer ──► API Gateway ──► Microservices.`
 
-   #### 🔵 Internal Load Balancer
+#### 🔵 Internal Load Balancer
     •Used when one microservice calls another.
     •An internal load balancer distributes network traffic across multiple servers or resources within a private 
          network ( e.g. virtual private cloud (VPC), Kubernetes Cluster).
