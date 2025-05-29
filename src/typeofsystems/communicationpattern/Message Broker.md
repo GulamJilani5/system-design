@@ -8,13 +8,17 @@
 # Messaeg Broker (Broker) = (RabbitMQ, Apache Kafka)
 - A Message Broker is a middleware that facilitates communication between different services or applications by 
      translating messages between messaging protocols, routing, and queuing.
-   ### Why called Broker ?
+   ##### Why called Broker ?
  - Because like a broker in real life, RabbitMQ sits in between two parties (producer and consumer), 
     managing and facilitating the exchange of data without the two needing to know about each other directly.
-   ### What type of data it can manage(Receive & Send)?
+   ##### What type of data it can manage(Receive & Send)?
  -   JSON, XML, Text, Binary Files, Java Objects.
 
-### ➡️1.  RabbitMQ
+---
+
+
+
+## ➡️1.  RabbitMQ
     RabbitMQ is a popular open-source message broker that implements the Advanced Message Queuing Protocol (AMQP). 
     It acts as a middleman that routes, buffers, and delivers messages between producers (senders) and consumers
     (receivers) in a reliable and scalable way.
@@ -58,7 +62,7 @@
 Producer → Exchange → [Binding] → Queue → Consumer
 
 
-### ⚡ Apache Kafka 
+## ➡️1. Apache Kafka 
 
 - Kafka is a **distributed event streaming platform** that serves as a high-throughput **message broker**.
 - It supports both **real-time streaming** and **message queuing** via **topics** and **consumer groups**.
