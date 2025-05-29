@@ -102,6 +102,9 @@ Producer → Exchange → [Binding] → Queue → Consumer
 - **Monitoring & Alerting** – Send and process metrics for alerting tools.
 - **Order/Event Tracking** – Track user activity, orders, or inventory events reliably.
 
+##### 🔄 Message Flow Example (Apache Kafka):
+ Producer → Topic → [Partition] → Consumer Group → Consumer
+
 ---
 
 
