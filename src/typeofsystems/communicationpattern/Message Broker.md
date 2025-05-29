@@ -17,7 +17,6 @@
 ---
 
 
-
 ## ➡️1.  RabbitMQ
     RabbitMQ is a popular open-source message broker that implements the Advanced Message Queuing Protocol (AMQP). 
     It acts as a middleman that routes, buffers, and delivers messages between producers (senders) and consumers
@@ -62,6 +61,8 @@
 Producer → Exchange → [Binding] → Queue → Consumer
 
 
+------- 
+
 ## ➡️1. Apache Kafka 
 
 - Kafka is a **distributed event streaming platform** that serves as a high-throughput **message broker**.
@@ -70,7 +71,7 @@ Producer → Exchange → [Binding] → Queue → Consumer
 - Kafka enables **decoupled, event-driven architectures** by allowing producers and consumers to operate independently.
 - Real-time processing is supported using tools like **Kafka Streams** and **ksqlDB**.
 
----
+
 
 ##### 🧰 Kafka Features for Managing Queues
 
@@ -81,7 +82,7 @@ Producer → Exchange → [Binding] → Queue → Consumer
 - **Exactly Once Semantics** – Prevents duplicate message processing.
 - **High Throughput** – Handles millions of messages per second with low latency.
 
----
+
 
 ##### 🔹 Key Points About Kafka Topics
 
