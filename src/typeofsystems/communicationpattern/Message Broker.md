@@ -120,3 +120,6 @@ Producer → Exchange → [Binding] → Queue → Consumer
 | **Scalability**       | Extremely scalable (partitioned logs) | Limited vertical scaling                  |
 | **Consumer Model**    | Pull-based                            | Push-based                                |
 | **Built for**         | Streaming, Big Data, Microservices    | Simple messaging and queuing              |
+
+
+
