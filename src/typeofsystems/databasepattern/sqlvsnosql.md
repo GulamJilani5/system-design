@@ -1,3 +1,12 @@
+# SQL vs NoSQL Terminology
+| SQL (MySQL/PostgreSQL)     | NoSQL (MongoDB)                                |
+|----------------------------|-------------------------------------------------|
+| `CustomerDB` (Database)    | `CustomerDB` (Database)                         |
+| `Users` (Table)            | `Users` (Collection)                            |
+| `id, name, age` (Columns)  | `"_id", "name", "age"` (Fields)                 |
+| `1, 'John', 30` (Row)      | `{ "_id": 1, "name": "John", "age": 30 }` (Document) |
+
+
 # SQL and NoSQL Databases
 
 | **Feature**        | **SQL (Relational DB)**                                            | **NoSQL (Non-Relational DB) **                                  |
@@ -10,3 +19,5 @@
 | **Use Cases**      | Complex queries, structured data (e.g., ERP, Banking)              | Big Data, real-time analytics, IoT, content management      |
 | **Query Language** | Structured Query Language (SQL)                                    | Varies by type; e.g., JSON-like queries in MongoDB          |
 | **Examples**       | MySQL, PostgreSQL, Oracle, SQL Server                              | MongoDB, Cassandra, Redis, Couchbase, Neo4j                 |
+
+
