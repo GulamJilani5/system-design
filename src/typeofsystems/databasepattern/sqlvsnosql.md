@@ -1,4 +1,4 @@
-# SQL vs NoSQL Terminology
+# ️ ️➡️SQL vs NoSQL Terminology
 | SQL (MySQL/PostgreSQL)     | NoSQL (MongoDB)                                |
 |----------------------------|-------------------------------------------------|
 | `CustomerDB` (Database)    | `CustomerDB` (Database)                         |
@@ -7,7 +7,7 @@
 | `1, 'John', 30` (Row)      | `{ "_id": 1, "name": "John", "age": 30 }` (Document) |
 
 
-# SQL and NoSQL Databases
+# ➡️SQL and NoSQL Databases
 
 | **Feature**        | **SQL (Relational DB)**                                            | **NoSQL (Non-Relational DB) **                                  |
 |--------------------|--------------------------------------------------------------------|-------------------------------------------------------------|
