@@ -5,7 +5,7 @@
 →
 ⁕
 
-# Messaeg Broker (Broker) = (RabbitMQ, Apache Kafka)
+# Asynchronous Communication(Message Broker or Broker) = (RabbitMQ, Apache Kafka)
 - A Message Broker is a middleware that facilitates communication between different services or applications by 
      translating messages between messaging protocols, routing, and queuing.
 ##### 🔵 Why called Broker ?
