@@ -2,7 +2,7 @@
 # 🛰️ 1. Observer Pattern
 
 ### **Purpose:**
-- Used when one object (subject) needs to notify multiple other objects (observers) about state changes **without tightly coupling them**.
+- Used when one object (subject or observable) needs to notify multiple other objects (observers) about state changes **without tightly coupling them**.
 
 ### **Real-world Analogy:**
 - A YouTube channel (subject) notifies all its subscribers (observers) when a new video is uploaded.

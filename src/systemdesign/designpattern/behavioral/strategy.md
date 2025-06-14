@@ -13,29 +13,29 @@
 
 ### **Example**:
     interface PaymentStrategy {
-    void pay(int amount);
+         void pay(int amount);
     }
     
     class CreditCardPayment implements PaymentStrategy {
-    public void pay(int amount) {
-    System.out.println("Paid " + amount + " using Credit Card");
-    }
+         public void pay(int amount) {
+         System.out.println("Paid " + amount + " using Credit Card");
+        }
     }
     
     class PayPalPayment implements PaymentStrategy {
-    public void pay(int amount) {
-    System.out.println("Paid " + amount + " using PayPal");
-    }
+            public void pay(int amount) {
+            System.out.println("Paid " + amount + " using PayPal");
+         }
     }
 
     class ShoppingCart {
-    PaymentStrategy strategy;
+        PaymentStrategy strategy;
 
-    void setPaymentStrategy(PaymentStrategy strategy) {
-        this.strategy = strategy;
+        void setPaymentStrategy(PaymentStrategy strategy) {
+            this.strategy = strategy;
     }
 
     void checkout(int amount) {
-        strategy.pay(amount);
-    }
+           strategy.pay(amount);
+        }
     }
