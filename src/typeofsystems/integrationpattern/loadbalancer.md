@@ -1,9 +1,6 @@
 🔵🟢🔴➡️⭕🟠🟦🟣🟥🟧✔️
-☑️
-•
-‣
-→
-⁕
+☑️ • ‣ → ⁕
+
 # Two Main Category Of Load Balancer
 
 ## ➡️1. Deployment Location = Internal or External
@@ -16,7 +13,7 @@
       (hardware, software, or cloud-managed services) that handle incoming traffic and distribute it to backend servers.  
     • They sit between clients(Internet) and servers, This means it's intercepting incoming requests and deciding 
       which server to send them to.   
-     Common Tools: AWS ELB/ALB, NGINX, HAProxy, Cloud Load Balancers.
+     Common Tools: AWS ELB/ALB, NGINX, HAProxy, 
 **Example:** Server Side Load Balancer.  
 **Flow:** `Client ──► Load Balancer ──► API Gateway ──► Microservices.`
 
@@ -35,10 +32,11 @@
 
 ## ➡️2.Traffic Routing Mechanism
       This is how traffic is routed — based on who decides where the traffic goes.
-#### 🔵 Client-side Load Balancer
+#### 🔵 Client-side Load Balancer(~30%)
 - The client looks up service instances from service discovery
 - It then chooses which instance to send the request to
-- No central load balancer in between
+- No central load balancer in between.
+- In Spring Boot microservices, you often see client-side LoadBalancer (Spring Cloud LoadBalancer) for internal service calls.
 
 **📦 Common Tools:**
 - Netflix Ribbon + Eureka
@@ -60,14 +58,16 @@
   │   Service B Instance (e.g., B1)   │
   └──────────────────────────────┘
 - 🧠 Routing logic is inside the client — no external proxy or load balancer.
+- `Client → (gets instance list from service registry) → Chooses instance → Calls service directly.`
 
-#### 🔵 Server-side Load Balancer
+#### 🔵 Server-side Load Balancer (~70%)
   - A reverse proxy or gateway sits between the client and services.
   - The proxy/load balancer decides which instance to route to.
   - Clients only see the load balancer, not the actual services.
+  - In Kubernetes, the default Service + kube-proxy behaves more like a server-side LoadBalancer.
 
    **📦 Common Tools:**
-         - NGINX, HAProxy, AWS ELB/ALB, Kubernetes Services, API Gateway
+         - NGINX, AWS ELB/ALB, Kubernetes Services, HAProxy, API Gateway
 
    **🔍 Used When:**
    - •Centralized control of traffic.
@@ -82,6 +82,8 @@
      ├─► Service B - Instance 2
      └─► Service B - Instance 3
   - 🧠 Load balancer (proxy or gateway) chooses which backend instance to send the request to.
+  - `Client → Server-Side Load Balancer → Backend Service Instance.`
+
   #### 🔵 Service Mesh Load Balancer
    - →Each service has a sidecar proxy (like Envoy) next to it.
    - →🔁 Service Mesh = Advanced Internal Load Balancer + more
