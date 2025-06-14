@@ -2,10 +2,10 @@
 # 🛰️ 1. Observer Pattern
 
 ### **Purpose:**
-Used when one object (subject) needs to notify multiple other objects (observers) about state changes **without tightly coupling them**.
+- Used when one object (subject) needs to notify multiple other objects (observers) about state changes **without tightly coupling them**.
 
 ### **Real-world Analogy:**
-A YouTube channel (subject) notifies all its subscribers (observers) when a new video is uploaded.
+- A YouTube channel (subject) notifies all its subscribers (observers) when a new video is uploaded.
 
 ### **Structure:**
 - **Subject**: Maintains a list of observers and notifies them on changes.
@@ -13,7 +13,7 @@ A YouTube channel (subject) notifies all its subscribers (observers) when a new 
 - **ConcreteSubject**: Implements the logic and notifies observers.
 - **ConcreteObserver**: Implements response to notifications.
 
-### **Example (Java-like):**
+### **Example:**
 ```java
 interface Observer {
     void update(String message);

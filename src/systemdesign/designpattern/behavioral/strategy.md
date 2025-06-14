@@ -4,13 +4,14 @@
 - Defines a family of algorithms, encapsulates each one, and makes them interchangeable. It allows the algorithm to vary independently from clients that use it.
 
 ### Real-world Analogy:
-A navigation app lets you choose between driving, cycling, or walking routes (strategies).
+- A navigation app lets you choose between driving, cycling, or walking routes (strategies).
 
 ### Structure:
-**Context**: Uses a strategy.
-**Strategy**: Interface for different algorithms.
+**Context**: Uses a strategy.  
+**Strategy**: Interface for different algorithms.  
 **ConcreteStrategy**: Implements the algorithm.
 
+### **Example**:
     interface PaymentStrategy {
     void pay(int amount);
     }
