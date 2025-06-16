@@ -1,12 +1,8 @@
 🔵🟢🔴➡️⭕🟠🟦🟣🟥🟧✔️
-☑️
-•
-‣
-→
-⁕
+☑️ • ‣ → ⁕
 
 # 🔨 Creational Design Patterns
-     Purpose: Deal with object creation mechanisms, trying to create objects in a manner suitable to the situation.
+**Purpose:** Deal with object creation mechanisms, trying to create objects in a manner suitable to the situation.
 
 | Pattern              | Description                                                                                                         | Example Use Case                                              |
 | -------------------- | ------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------- |
@@ -18,7 +14,7 @@
 
 
 # 🧱 Structural Design Patterns
-    Purpose: Concerned with how classes and objects are composed to form larger structures.
+**Purpose:** Concerned with how classes and objects are composed to form larger structures.
 
 | Pattern       | Description                                                                        | Example Use Case                               |
 | ------------- | ---------------------------------------------------------------------------------- | ---------------------------------------------- |
@@ -32,7 +28,7 @@
 
 
 # 🔁 Behavioral Design Patterns
-    Purpose: Deal with communication between objects and how responsibilities are assigned.
+**Purpose:** Deal with communication between objects and how responsibilities are assigned.
 
 | Pattern                     | Description                                                                                              | Example Use Case                           |
 | --------------------------- | -------------------------------------------------------------------------------------------------------- | ------------------------------------------ |
