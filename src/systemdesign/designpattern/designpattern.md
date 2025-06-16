@@ -25,10 +25,10 @@
 | **Adapter**   | Allows incompatible interfaces to work together.                                   | Connecting new software to legacy systems      |
 | **Bridge**    | Separates abstraction from its implementation so that both can vary independently. | UI abstraction vs rendering implementation     |
 | **Composite** | Composes objects into tree structures to represent part-whole hierarchies.         | File system structure (folders and files)      |
+| **Proxy**     | Provides a surrogate or placeholder for another object.                            | Virtual proxy for loading images lazily        |
 | **Decorator** | Adds responsibilities to objects dynamically.                                      | Adding scrolling or border to a UI component   |
 | **Facade**    | Provides a simplified interface to a larger body of code.                          | API gateway, simplified interface to a library |
 | **Flyweight** | Reduces the cost of creating and manipulating a large number of similar objects.   | Text editors sharing character glyphs          |
-| **Proxy**     | Provides a surrogate or placeholder for another object.                            | Virtual proxy for loading images lazily        |
 
 
 # 🔁 Behavioral Design Patterns
