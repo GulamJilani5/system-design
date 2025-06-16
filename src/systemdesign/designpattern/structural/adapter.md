@@ -30,7 +30,7 @@
             vlcPlayer.playVLC(fileName);
         }
     }
-}
+    }
 
     // Client
     class AudioPlayer implements MediaPlayer {
