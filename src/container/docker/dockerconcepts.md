@@ -18,7 +18,7 @@
 - Container has its own set of namespace including `process`, `network`, `mount` and `IPC`(inter process communication).
 - **cgroup** provides resource management and allocations like `cpu`, `memory`, `disk I/O` and `network`.
 
-##### 🔷 Installing Docker on Linux
+##### 🔵 Installing Docker on Linux
 - Complete **Docker Engine** is installed on host Linux OS.
 
 
