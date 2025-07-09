@@ -19,13 +19,16 @@
 - Think of it like this: If you have 5 nodes in your cluster, and you create a DaemonSet, it will automatically deploy 1 pod on each of those 5 nodes.  
 - A **DaemonSet** is its own kind of resource, just like `Deployment`, `StatefulSet`, or `Job`.  
 - If you're using `kind: Deployment` in your YAML file, you're not using a **DaemonSet**.  
-- Must explicitly define `kind: DaemonSet` in your YAML if you want to use **DaemenSet**.  
+- Must explicitly define `kind: DaemonSet` in your YAML if you want to use **DaemenSet**.
+- 
 **Summary**
+
 | Feature    | DaemonSet                        |
-| ---------- | -------------------------------  | 
-| Purpose    | Run 1 pod per node               | 
-| Use Case   | Logging, monitoring, networking  | 
+|-----------|----------------------------------|
+| Purpose    | Run 1 pod per node               |
+| Use Case   | Logging, monitoring, networking  |
 | Implicit?  | ❌ No                            |
+
 
 
 ### ➡️ StatefulSet 
