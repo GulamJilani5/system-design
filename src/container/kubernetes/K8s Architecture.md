@@ -6,8 +6,8 @@
 ⁕
 
 # ⏺️ Kubernetes is a Cluster
-**Cluster** hist all the resources and infrastructure.
-`Cluster = Master Node/Control Plane + Worker Node/Node`
+- **Cluster** host all the resources and infrastructure.  
+- `Cluster = Master Node/Control Plane + Worker Node/Node`
 
 ### ➡️ 1. Control Plane Component
 
