@@ -7,7 +7,7 @@
        labels:
           app: my-app            # Label to identify the deployment
     spec:                      # Specification of the deployment
-       replicas: 3              # Number of pod replicas
+       replicas: 3              # ReplicaSet
        selector:                # How to identify pods managed by this deployment
          matchLabels:
            app: my-app

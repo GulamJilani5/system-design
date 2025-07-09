@@ -1,3 +1,11 @@
+🔵🔹🔷 🔵 ➡️ ⏺️
+☑️ ✔️ 🔴 ⭕
+•
+‣
+→
+⁕
+
+
 # 🔄 Kubernetes Concepts:
 | **Component**  | **Purpose**                                                                             |
 | -------------- | --------------------------------------------------------------------------------------- |
@@ -59,8 +67,18 @@ A Deployment ensures that your desired number of pod replicas are running.
 - Scaling up/down
 - Rolling updates
 - Rollbacks
+- It's how you deploy and manage pods in a controlled way.
 
-It's how you deploy and manage pods in a controlled way.
+### ReplicaSet
+
+### DaemonSet
+
+### StatefulSet
+
+### Storage
+
+### Volumes
+
 
 
 

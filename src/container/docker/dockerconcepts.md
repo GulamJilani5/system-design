@@ -37,5 +37,16 @@
 `Image (static) → docker run → Container (running, live microservice/app)`
 
 
+# Three different ways to create docker image
+
+### 1. Dockerfile
+
+### 2. Buildpacks
+
+### 3. Google lib
+
+
+
+
 
 
