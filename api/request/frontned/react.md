@@ -171,9 +171,9 @@ javascriptaxios.get("https://api.example.com/protected", {
 
 ##### 🟩 Constraints:
 
-CORS restricts credentials: 'include' unless the server allows it (Access-Control-Allow-Credentials: true).
-Tokens must be securely stored (e.g., in localStorage or HttpOnly cookies) to prevent XSS attacks.
-API keys in query parameters are less secure due to visibility in URLs.
+- **CORS restricts credentials:** 'include' unless the server allows it (Access-Control-Allow-Credentials: true).
+- **Tokens** must be securely stored (e.g., in **localStorage** or **HttpOnly** cookies) to prevent XSS attacks.
+- API keys in query parameters are less secure due to visibility in URLs.
 
 ### ➡️ 4. Additional Configurations
 

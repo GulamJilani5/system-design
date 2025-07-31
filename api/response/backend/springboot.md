@@ -1,7 +1,8 @@
-⏺️ # API Response from the Backend (Spring Boot)
+🟩 🟢 🔷 🔹 🔵 🟦 ⏺️ ➡️
+
+# ⏺️ API Response from the Backend (Spring Boot)
 
 In a Spring Boot backend, API responses are crafted using controllers, and the response includes headers, body, status codes, and additional metadata.
-🟩 🟢 🔷 🔹 🔵 🟦 ⏺️ ➡️
 
 ### ➡️ 1. Headers
 
@@ -9,17 +10,19 @@ The server can send headers to provide metadata, control caching, or manage auth
 
 ##### 🟦 What Can Be Sent:
 
-Content-Type: Specifies the response body format (e.g., application/json).
-Set-Cookie: Sends cookies to the client for session management.
-Location: Provides the URL of a newly created resource (e.g., after a POST).
-Cache-Control: Controls caching (e.g., no-cache, max-age=3600).
-Access-Control-Allow- Headers\*: For CORS (e.g., Access-Control-Allow-Origin, Access-Control-Allow-Credentials).
-Custom Headers: For API-specific metadata (e.g., X-Rate-Limit: 100).
+- **Content-Type:** Specifies the response body format (e.g., `application/json`).
+- **Set-Cookie:** Sends cookies to the client for session management.
+- **Location:** Provides the URL of a newly created resource (e.g., after a `POST`).
+- **Cache-Control:** Controls caching (e.g., `no-cache`, `max-age=3600`).
+- **Access-Control-Allow- Headers\*:** For CORS (e.g., `Access-Control-Allow-Origin`, `Access-Control-Allow-Credentials`).
+- **Custom Headers:** For API-specific metadata (e.g., `X-Rate-Limit: 100`).
 
 ##### 🟦 How to Send in Spring Boot:
 
+- **🔷Using ResponseEntity:**
+
 ```java
-Using ResponseEntity:
+
 javaimport org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,8 +42,12 @@ headers.add("Cache-Control", "max-age=3600");
     }
 
 }
-Using @ResponseHeader:
-javaimport org.springframework.web.bind.annotation.GetMapping;
+```
+
+- **🔷Using @ResponseHeader:**
+
+```java
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseHeader;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -57,9 +64,9 @@ return new User("john_doe");
 
 ##### 🟦 Constraints:
 
-Ensure CORS headers are set for cross-origin requests.
-Avoid sensitive data in headers (e.g., tokens should be in HttpOnly cookies or body).
-Large headers can impact performance.
+- Ensure CORS headers are set for cross-origin requests.
+- Avoid sensitive data in headers (e.g., tokens should be in HttpOnly cookies or body).
+- Large headers can impact performance.
 
 ### ➡️ 2. Body
 
@@ -77,7 +84,7 @@ Binary Data: For files (e.g., images, PDFs).
 - 🔵 **JSON:**
 
 ```java
-java@GetMapping("/users")
+@GetMapping("/users")
 public User getUser() {
 return new User("john_doe", "john@example.com");
 }
@@ -107,9 +114,13 @@ ByteArrayResource resource = new ByteArrayResource(fileContent);
     }
 
 }
+```
 
-Error Response:
-java@GetMapping("/users/{id}")
+- **🔷Error Response:**
+
+```java
+
+@GetMapping("/users/{id}")
 public ResponseEntity<?> getUser(@PathVariable Long id) {
 if (id == null) {
 return ResponseEntity.status(HttpStatus.BAD_REQUEST)
@@ -121,9 +132,9 @@ return ResponseEntity.ok(new User("john_doe"));
 
 ##### 🟦 Constraints:
 
-Ensure the Content-Type matches the body format.
-Large responses may require pagination or streaming.
-Use appropriate status codes (e.g., 204 No Content for empty responses).
+- Ensure the Content-Type matches the body format.
+- Large responses may require pagination or streaming.
+- Use appropriate status codes (e.g., 204 No Content for empty responses).
 
 ### ➡️ 3. Credentials
 
@@ -141,8 +152,7 @@ The server can send credentials or manage authentication in responses.
 
 ```java
 
-javaimport javax.servlet.http.Cookie;
-
+import javax.servlet.http.Cookie;
 @RestController
 public class AuthController {
 @GetMapping("/login")
@@ -231,6 +241,6 @@ headers.add("Link", "<next_page_url>; rel=\"next\"");
 Use headers to inform clients of limits.
 
 ```java
-javaheaders.add("X-Rate-Limit-Remaining", "99");
-headers.add("X-Rate-Limit-Reset", "1631234567");
+    headers.add("X-Rate-Limit-Remaining", "99");
+    headers.add("X-Rate-Limit-Reset", "1631234567");
 ```
