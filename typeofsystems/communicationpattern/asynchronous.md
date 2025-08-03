@@ -5,24 +5,35 @@
 →
 ⁕
 
-# Asynchronous Communication(Message Broker or Broker) = (RabbitMQ, Apache Kafka)
-- A Message Broker is a middleware that facilitates communication between different services or applications by 
-     translating messages between messaging protocols, routing, and queuing.
+# Asynchronous Communication
+
+## 1. WebClient
+
+- Non-blocking Http client(Reactive)
+
+## 2. (Message Broker or Broker) = (RabbitMQ, Apache Kafka)
+
+- A Message Broker is a middleware that facilitates communication between different services or applications by
+  translating messages between messaging protocols, routing, and queuing.
+
 ##### 🔵 Why called Broker ?
- - Because like a broker in real life, RabbitMQ sits in between two parties (producer and consumer), 
-    managing and facilitating the exchange of data without the two needing to know about each other directly.
- ##### 🔵 What type of data it can manage(Receive & Send)?
- -   JSON, XML, Text, Binary Files, Java Objects.
+
+- Because like a broker in real life, RabbitMQ sits in between two parties (producer and consumer),
+  managing and facilitating the exchange of data without the two needing to know about each other directly.
+
+##### 🔵 What type of data it can manage(Receive & Send)?
+
+- JSON, XML, Text, Binary Files, Java Objects.
 
 ---
 
+### ➡️2.1. RabbitMQ
 
-## ➡️1.  RabbitMQ
-    RabbitMQ is a popular open-source message broker that implements the Advanced Message Queuing Protocol (AMQP). 
+    RabbitMQ is a popular open-source message broker that implements the Advanced Message Queuing Protocol (AMQP).
     It acts as a middleman that routes, buffers, and delivers messages between producers (senders) and consumers
     (receivers) in a reliable and scalable way.
 
- ##### ⚙️ How RabbitMQ Manages Message Queuing
+##### ⚙️ How RabbitMQ Manages Message Queuing
 
 1. **Producer** – Sends messages to an exchange.
 2. **Exchange** – Routes messages to queues based on routing rules.
@@ -30,7 +41,7 @@
 4. **Consumer** – Receives and processes messages from queues.
 5. **Bindings** – Link exchanges to queues with routing keys.
 6. **Acknowledgments** – Ensure reliable message delivery and reprocessing.
-   
+
 ###### 🧰 RabbitMQ Features for Managing Queues
 
 - **Durable Queues** – Persist messages even after broker restarts.
@@ -40,13 +51,13 @@
 - **Prefetch Limit** – Limit unacknowledged messages per consumer.
 
 ##### ✅ Exchange Types (Routing Rules):
+
 | Exchange Type | Description                                        | Example Use                                |
 | ------------- | -------------------------------------------------- | ------------------------------------------ |
 | **Direct**    | Routes to queues with exact routing key match.     | Notify one queue based on message type.    |
 | **Fanout**    | Broadcasts message to **all** bound queues.        | System-wide notifications, logs.           |
 | **Topic**     | Routes based on wildcard patterns in routing keys. | Complex routing like `order.*.email`.      |
 | **Headers**   | Routes based on message headers instead of keys.   | Dynamic filtering (e.g., by region, type). |
-
 
 ##### 🚀 Use Cases of RabbitMQ
 
@@ -58,20 +69,18 @@
 - **Order Processing** – Queue customer orders for backend workflows.
 
 ##### 🔄 Message Flow Example(RabbitMQ):
+
 Producer → Exchange → [Binding] → Queue → Consumer
 
+---
 
-------- 
-
-## ➡️1. Apache Kafka 
+### ➡️2.2. Apache Kafka
 
 - Kafka is a **distributed event streaming platform** that serves as a high-throughput **message broker**.
 - It supports both **real-time streaming** and **message queuing** via **topics** and **consumer groups**.
 - **Topics** are logs of messages divided into **partitions** for scalability and parallelism.
 - Kafka enables **decoupled, event-driven architectures** by allowing producers and consumers to operate independently.
 - Real-time processing is supported using tools like **Kafka Streams** and **ksqlDB**.
-
-
 
 ##### 🧰 Kafka Features for Managing Queues
 
@@ -81,8 +90,6 @@ Producer → Exchange → [Binding] → Queue → Consumer
 - **Consumer Groups** – Scale consumers horizontally for load balancing.
 - **Exactly Once Semantics** – Prevents duplicate message processing.
 - **High Throughput** – Handles millions of messages per second with low latency.
-
-
 
 ##### 🔹 Key Points About Kafka Topics
 
@@ -103,12 +110,12 @@ Producer → Exchange → [Binding] → Queue → Consumer
 - **Order/Event Tracking** – Track user activity, orders, or inventory events reliably.
 
 ##### 🔄 Message Flow Example (Apache Kafka):
- Producer → Topic → [Partition] → Consumer Group → Consumer
+
+Producer → Topic → [Partition] → Consumer Group → Consumer
 
 ---
 
-
-#  ➡️ Kafka vs. Traditional Brokers (like RabbitMQ):
+# ➡️ Kafka vs. Traditional Brokers (like RabbitMQ):
 
 | Feature               | **Kafka**                             | **RabbitMQ** (Traditional Broker)         |
 | --------------------- | ------------------------------------- | ----------------------------------------- |
@@ -121,5 +128,41 @@ Producer → Exchange → [Binding] → Queue → Consumer
 | **Consumer Model**    | Pull-based                            | Push-based                                |
 | **Built for**         | Streaming, Big Data, Microservices    | Simple messaging and queuing              |
 
+### ➡️ 4. Java 11 HTTP Client API (synchronous + asyncchronous)
 
+- **HttpClient:** The main entry point for sending requests and managing configurations.
+- **HttpRequest:** Represents an HTTP request with method, URL, headers, and body.
+- **HttpResponse:** Represents the server’s response, including status code, headers, and body.
 
+```java
+
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.util.concurrent.CompletableFuture;
+
+public class AsyncHttpClientExample {
+    public static void main(String[] args) {
+        HttpClient client = HttpClient.newHttpClient();
+        String json = "{\"name\": \"John\", \"age\": 30}";
+        HttpRequest request = HttpRequest.newBuilder()
+            .uri(URI.create("https://api.example.com/users"))
+            .header("Content-Type", "application/json")
+            .POST(HttpRequest.BodyPublishers.ofString(json))
+            .build();
+
+        CompletableFuture<HttpResponse<String>> future = client.sendAsync(request, HttpResponse.BodyHandlers.ofString());
+
+        future.thenAccept(response -> {
+            System.out.println("Status Code: " + response.statusCode());
+            System.out.println("Response Body: " + response.body());
+        }).exceptionally(throwable -> {
+            System.err.println("Error: " + throwable.getMessage());
+            return null;
+        }).join(); // Wait for completion
+    }
+
+}
+
+```

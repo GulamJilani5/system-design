@@ -75,7 +75,11 @@ MyResponse responseBody = response.getBody(); // Get the MyResponse object
 - **Not declarative:** Lacks the clean, annotation-based approach of Feign Client.
 - **Error handling:** Needs custom implementation for robust error handling (e.g., retries, circuit breakers).
 
-### ➡️ 2. Feign Client
+### ➡️ 2. Rest Client
+
+- Modern alternate of RestTemplate(Replacement of RestTemplate).
+
+### ➡️ 3. Feign Client
 
 Feign Client is a declarative HTTP client, part of Spring Cloud, that simplifies REST API calls by using
 annotations to define client interfaces. It abstracts much of the boilerplate code required in RestTemplate.
@@ -121,3 +125,33 @@ annotations to define client interfaces. It abstracts much of the boilerplate co
 | Error Handling    | Manual implementation            | Built-in support via Hystrix/Resilience4j |
 | Maintenance       | Deprecated in favor of WebClient | Actively maintained                       |
 | Use Case          | Simple, ad-hoc HTTP calls        | Microservices with service discovery      |
+
+### ➡️ 4. Java 11 HTTP Client API (synchronous + asyncchronous)
+
+- **HttpClient:** The main entry point for sending requests and managing configurations.
+- **HttpRequest:** Represents an HTTP request with method, URL, headers, and body.
+- **HttpResponse:** Represents the server’s response, including status code, headers, and body.
+
+```java
+
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+
+public class HttpClientExample {
+    public static void main(String[] args) throws Exception {
+        HttpClient client = HttpClient.newHttpClient();
+        HttpRequest request = HttpRequest.newBuilder()
+            .uri(URI.create("https://api.example.com/data"))
+            .header("Accept", "application/json")
+            .GET()
+            .build();
+
+        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        System.out.println("Status Code: " + response.statusCode());
+        System.out.println("Response Body: " + response.body());
+    }
+}
+
+```
