@@ -18,7 +18,7 @@
 Feign Client is a **declarative HTTP client**, part of **Spring Cloud**, that simplifies REST API calls by using
 annotations to define client interfaces. It abstracts much of the boilerplate code required in RestTemplate.
 
-### ➡️ 4. HTTP Client API (synchronous + asyncchronous) - java 11
+### ➡️ 4. Java 11 HTTP Client API (synchronous + asynchronous)
 
 - **HttpClient:** The main entry point for sending requests and managing configurations.
 - **HttpRequest:** Represents an HTTP request with method, URL, headers, and body.
