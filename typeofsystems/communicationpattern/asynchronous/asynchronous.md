@@ -16,16 +16,18 @@
 - **BodyHandlers**
 - **BodyPublishers**
 
-## ➡️ 3. Java ExecutorService
+## ➡️ 3.1. Java ExecutorService
 
+- Pure Java(**Core Java / JDK level**) concurrency utility (since Java 5, `java.util.concurrent`).
 - Detailed explanation is find in the **java-fundamentals` multithreading**
 - It is high level concurrency utility
 - It abstract away the complexity of thread management, making usage of threads easier.
 - Provides a way to manage and execute task asynchronously in a pool of threads.
--
 
-## ➡️ 4. Background / Async Tasks - @Async + TaskExecutor
+## ➡️ 3.2. Background / Async Tasks - @Async + TaskExecutor
 
+- Built on top of `ExecutorService`.
+- Spring manages the lifecycle of the thread pool for you.
 - **@Async + TaskExecutor** → used selectively, usually for **legacy/blocking** integrations.
 - Parallelizing blocking calls
 - Background processing in the same service
@@ -46,7 +48,7 @@
 - Implementations like ThreadPoolTaskExecutor are widely used in Spring Boot.
 - Commonly used in Spring Boot 1.x, 2.x, 3.x (still valid today).
 
-## ➡️ 5. (Message Broker or Broker) = (RabbitMQ, Apache Kafka)
+## ➡️ 4. (Message Broker or Broker) = (RabbitMQ, Apache Kafka)
 
 - A Message Broker is a middleware that facilitates communication between different services or applications by
   translating messages between messaging protocols, routing, and queuing.
@@ -60,13 +62,13 @@
 
 - JSON, XML, Text, Binary Files, Java Objects.
 
-### 🟦 5.1. RabbitMQ
+### 🟦 4.1. RabbitMQ
 
     RabbitMQ is a popular open-source message broker that implements the Advanced Message Queuing Protocol (AMQP).
     It acts as a middleman that routes, buffers, and delivers messages between producers (senders) and consumers
     (receivers) in a reliable and scalable way.
 
-### 🟦 5.2. Apache Kafka
+### 🟦 4.2. Apache Kafka
 
 - Kafka is a **distributed event streaming platform** that serves as a high-throughput **message broker**.
 - It supports both **real-time streaming** and **message queuing** via **topics** and **consumer groups**.
