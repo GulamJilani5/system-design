@@ -64,9 +64,9 @@
 
 ### 🟦 4.1. RabbitMQ
 
-    RabbitMQ is a popular open-source message broker that implements the Advanced Message Queuing Protocol (AMQP).
-    It acts as a middleman that routes, buffers, and delivers messages between producers (senders) and consumers
-    (receivers) in a reliable and scalable way.
+- **RabbitMQ** is a popular open-source message broker that implements the **Advanced Message Queuing Protocol (AMQP).**
+- It acts as a middleman that routes, buffers, and delivers messages between producers (senders) and consumers
+  (receivers) in a reliable and scalable way.
 
 ### 🟦 4.2. Apache Kafka
 
