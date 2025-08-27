@@ -73,5 +73,6 @@
 - Kafka is a **distributed event streaming platform** that serves as a high-throughput **message broker**.
 - It supports both **real-time streaming** and **message queuing** via **topics** and **consumer groups**.
 - **Topics** are logs of messages divided into **partitions** for scalability and parallelism.
-- Kafka enables **decoupled, event-driven architectures** by allowing producers and consumers to operate independently.
+- Kafka enables **decoupled, event-driven architectures** by allowing producers and consumers to operate  
+  independently.
 - Real-time processing is supported using tools like **Kafka Streams** and **ksqlDB**.
