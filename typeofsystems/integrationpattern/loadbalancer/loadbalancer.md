@@ -19,9 +19,10 @@
 
 - **Common Tools:**
 
-  - 🔴Spring Cloud Gateway
-  - AWS ELB/ALB,
-  - NGINX, HAProxy,
+  - 🔴Spring Cloud Loadbalancer
+  - 🔴ring Cloud Gateway
+  - AWS ELB/ALB
+  - NGINX, HAProxy
 
 - **Example:** Server Side Load Balancer.
 - **Flow:** `Client ──► Load Balancer ──► API Gateway ──► Microservices.`
@@ -50,17 +51,20 @@
 
 - This is how traffic is routed — based on who decides where the traffic goes.
 
-#### 🔵 Client-side Load Balancer(~30%)
+#### 🔵 Client-side Load Balancer(~30%)🟥
 
 - The client looks up service instances from service discovery
 - It then chooses which instance to send the request to
 - No central load balancer in between.
-- In Spring Boot microservices, you often see client-side LoadBalancer (Spring Cloud LoadBalancer) for internal service calls.
+- In Spring Boot microservices, you often see Client-Side LoadBalancer (Spring Cloud LoadBalancer) for internal service calls.
+
+- **👉 Analogy:**
+  You go to a food court. You yourself decide whether to go to **KFC**, **McD**, or **Subway** counter (you know the list of counters).
 
 - **📦 Common Tools:**
 
   - 🔴Spring Cloud LoadBalancer
-  - Netflix Ribbon + Eureka
+  - Netflix Ribbon + Eureka (Deprecatde)
   - gRPC with round-robin logic
 
 - **🔍 Used When:**
@@ -84,21 +88,30 @@
 - 🧠 Routing logic is inside the client — no external proxy or load balancer.
 - `Client → (gets instance list from service registry) → Chooses instance → Calls service directly.`
 
-#### 🔵 Server-side Load Balancer (~70%)
+##### 🟣 Feign Client + LoadBalancer
+
+- **Feign Client** → used to call another microservice just by its service name (**e.g.**, `order-service`).
+- **Spring Cloud LoadBalancer** → automatically picks one instance (from multiple registered instances) of that service.
+- **Developer (We)** → don’t need to write any code to select which instance; it happens behind the scenes.
+
+#### 🔵 Server-side Load Balancer (~70%)🟥
 
 - A reverse proxy or gateway sits between the client and services.
 - The proxy/load balancer decides which instance to route to.
 - Clients only see the load balancer, not the actual services.
 - In Kubernetes, the default Service + kube-proxy behaves more like a server-side LoadBalancer.
 
-  - **📦 Common Tools:**
-    - 🔴Spring Cloud Gateway,
-    - NGINX,
-    - AWS ELB/ALB,
-    - Kubernetes Services,
-    - HAProxy, API Gateway
+- **👉 Analogy:**
+  You go to the restaurant reception. The receptionist decides which waiter (service instance) will serve you.
 
-  **🔍 Used When:**
+- **📦 Common Tools:**
+  - 🔴Spring Cloud Gateway,
+  - NGINX,
+  - AWS ELB/ALB,
+  - Kubernetes Services,
+  - HAProxy, API Gateway
+
+**🔍 Used When:**
 
 - Centralized control of traffic.
 - Front-door to external traffic.
@@ -106,7 +119,7 @@
 - **Flow:**
   - Client (Service A or External User)
     │
-    └─► Sends request to Central Load Balancer (e.g., NGINX / ELB)
+    └─► Sends request to Central Load Balancer (e.g., Spring Cloud Gateway / NGINX / ELB)
     │
     ├─► Service B - Instance 1
     ├─► Service B - Instance 2
