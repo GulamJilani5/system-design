@@ -58,13 +58,3 @@ Modify requests/responses (headers, payload) without touching services.
 | **NGINX / HAProxy**        | Infra-level gateways                                      | Needs custom routing logic; fast but not Java-based. |
 | **AWS API Gateway**        | Cloud-based                                               | Great for serverless/microservices on AWS.           |
 | **Istio Ingress Gateway**  | With Service Mesh                                         | Works with Envoy; advanced service mesh routing.     |
-
-### Dependency ➡️
-
-`
-<dependency>
-<groupId>org.springframework.cloud</groupId>
-<artifactId>spring-cloud-starter-gateway</artifactId>
-</dependency>
-
-`
