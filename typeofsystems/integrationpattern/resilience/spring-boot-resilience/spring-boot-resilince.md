@@ -13,6 +13,9 @@ This dependency provides the integration of Resilience4j with Spring Cloud's cir
 <artifactId>spring-cloud-starter-circuitbreaker-resilience4j</artifactId>
 </dependency>
 `
+
+- With Spring Webflux
+
 `<dependency>
 <groupId>org.springframework.cloud</groupId>
 <artifactId>spring-cloud-starter-circuitbreaker-reactor-resilience4j</artifactId>
@@ -37,3 +40,10 @@ This dependency provides Resilience4j's core libraries and Spring Boot-specific 
 </dependency>
 
 `
+
+## How these apply in Spring Cloud Gateway
+
+- **Retry, Fallback, Circuit Breaker, Rate Limiting** → built-in filters (with Resilience4j).
+- **Timeouts** → configurable in Gateway route + Resilience4j.
+- **Caching** → custom filter + Redis/Guava integration.
+- **Bulkheads, Idempotency, Chaos Testing** → usually handled in backend microservices, but Gateway can help by rejecting excessive requests early.
