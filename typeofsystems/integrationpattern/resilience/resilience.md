@@ -13,18 +13,18 @@ Resilience in the context of Spring Boot microservices refers to the ability of 
 
 ### 3. Retry
 
-### 4.
+### 4. Fallback
 
-### 5.
+### 5. Bulkhead Isolation
 
-### 6.
+### 6. Timeouts
 
-### 7.
+### 7. Caching
 
-### 8.
+### 8. Idempotency
 
-### 9.
+### 9. Load Balancing
 
-### 10.
+### 10. Graceful Degradation
 
-### 11.
+### 11. Chaos Engineering Support
