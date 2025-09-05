@@ -68,7 +68,25 @@ We can Combine retries with a circuit breaker to trigger a fallback after retrie
 
 ### 4. Fallback
 
+- Alternative paths to failing requests.
+
+##### 🟦 Relation to Retry, Circuit Breaker, Rate Limiting
+
+- **Circuit Breaker:** Fallback is tightly coupled with circuit breakers. It’s the alternative path when the circuit breaker opens due to failures.
+- **Retry:** Retries don’t directly use fallbacks. If retries fail, the original error is returned unless a circuit breaker is configured to trigger a fallback.
+- **Rate Limiting:** Unrelated. Rate limiting returns a 429 Too Many Requests response when limits are exceeded, not a fallback.
+
 ### 5. Bulkhead Isolation
+
+- limits the number of concurrent requests to a service, like dividing a ship into compartments (bulkheads) to prevent sinking if one part floods. It ensures one service’s failure doesn’t overload the entire system.
+
+##### 🟦 Relation to Retry, Circuit Breaker, Rate Limiting
+
+- **Circuit Breaker:** Bulkhead isolation can work with circuit breakers. If a service fails under load, the bulkhead limits concurrent calls, and the circuit breaker provides a fallback.
+- **Retry:** Unrelated directly. Retries handle transient failures by retrying requests, while bulkhead limits concurrent requests. You could combine them (e.g., retry within a bulkhead limit).
+- **Rate Limiting:** Different purpose. Rate limiting restricts the total number of requests per client over time (**e.g.**, 100/minute), while bulkhead limits concurrent requests to a service at any moment. They can be used together for different aspects of control.
+
+When to Use
 
 ### 6. Timeouts
 
