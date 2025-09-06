@@ -23,7 +23,7 @@
 - **Example:**
   - Service-B is down → Service-A immediately fails fast with fallback instead of waiting for timeouts.
 
-##### 🟦 3. HALF_OPEN(Testing state)
+### 🟦 3. HALF_OPEN(Testing state)
 
 - After the wait time, the circuit breaker allows a limited number of trial requests to check if the service has recovered.
 - If the trial requests succeed → breaker goes back to CLOSED.
