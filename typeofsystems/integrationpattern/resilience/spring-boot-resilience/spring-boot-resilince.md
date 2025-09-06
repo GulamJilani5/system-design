@@ -38,9 +38,9 @@
   - If successful → resume normal traffic (CLOSED).
   - If not → keep breaker OPEN.
 
-- **Two Ways** to use the
+#### 🟦 **Two Ways** to use the Circuit Breaker
 
-##### 🟦 1. Spring Cloud Gateway Pattern Filter
+##### 🔵1. Spring Cloud Gateway Pattern Filter
 
 In Spring Cloud Gateway, the Resilience4j Circuit Breaker can be applied as a filter to manage requests routed through the gateway. This is useful for protecting downstream services by applying circuit breaker logic at the gateway level.
 
@@ -57,7 +57,7 @@ This approach centralizes resilience logic at the gateway, avoiding the need to 
 <artifactId>spring-cloud-starter-circuitbreaker-reactor-resilience4j</artifactId>
 </dependency>`
 
-##### 🟦 2. Normal Spring Boot Service
+##### 🔵2. Normal Spring Boot Service
 
 In a standard Spring Boot service, the Resilience4j Circuit Breaker is applied at the service layer using annotations or programmatic APIs. This is useful for protecting specific service methods that call external systems or dependencies.
 
