@@ -10,7 +10,7 @@
 
 - In **Resilience4J**, the circuit breaker is implemented via three **states**.
 
-### 🟦 CLOSED(Normal state)
+##### 🟦 CLOSED(Normal state)
 
 - Calls are short-circuited immediately (fallback is triggered).
 - This prevents wasting time and resources on a service that’s already failing.
@@ -18,7 +18,7 @@
 - **Example:**
   - Service-B is down → Service-A immediately fails fast with fallback instead of waiting for timeouts.
 
-### 🟦 OPEN (Service considered unhealthy)
+##### 🟦 OPEN (Service considered unhealthy)
 
 - No requests go to the failing service
 - Calls are short-circuited immediately (fallback is triggered).
@@ -27,7 +27,7 @@
 - **Example:**
   - Service-B is down → Service-A immediately fails fast with fallback instead of waiting for timeouts.
 
-### 🟦 HALF_OPEN(Testing state)
+##### 🟦 HALF_OPEN(Testing state)
 
 - After the wait time, the circuit breaker allows a limited number of trial requests to check if the service has recovered.
 - If the trial requests succeed → breaker goes back to CLOSED.
@@ -38,7 +38,7 @@
   - If successful → resume normal traffic (CLOSED).
   - If not → keep breaker OPEN.
 
-#### 🟦 **Two Ways** to use the Circuit Breaker
+#### 🟦 Two Ways to use the Circuit Breaker
 
 ##### 🔵1. Spring Cloud Gateway Pattern Filter
 
