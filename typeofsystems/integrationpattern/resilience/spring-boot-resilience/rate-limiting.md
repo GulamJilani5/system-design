@@ -18,26 +18,39 @@
 
 Inside the method where we are creating a bean of `RouteLocator`, add a filter of rate limitter like highlighted below and creating supporting beans of `RedisRateLimiter` and `KeyResolver`.
 
-````java
+- **Add These two lines**
+
+```java
+        .addResponseHeader ("X-Response-Time", new Date().toString()) .requestRateLimiter (config ->
+         config.setRateLimiter (redisRateLimiter()).setKeyResolver (userKeyResolver ())))
+```
+
+- **Adding above two lines in the RouteLocator**
+
+```java
 @Bean
 public RouteLocator myRoutes (RouteLocatorBuilder builder) {
 return builder.routes ()
-.route(p->p.path("/eazybank/cards/\*_")
-.filters (f -> f.rewritePath("/eazybank/cards/(?<segment>._)","/${segment}")
-.addResponseHeader ("X-Response-Time", new Date().toString()) .requestRateLimiter (config ->
-config.setRateLimiter (redisRateLimiter()).setKeyResolver (userKeyResolver ()))) .uri("lb://CARDS")).build();
+            .route(p->p.path("/eazybank/cards/\*_")
+                .filters (f -> f.rewritePath("/eazybank/cards/(?<segment>._)","/${segment}")
+                    .addResponseHeader ("X-Response-Time", new Date().toString()) .requestRateLimiter (config ->
+                    config.setRateLimiter (redisRateLimiter()).setKeyResolver (userKeyResolver ())))
+                .uri("lb://CARDS")).build();
 }
+
 @Bean
 public RedisRateLimiter redisRateLimiter() {
+   return new RedisRateLimiter (1, 1, 1);
 }
-return new RedisRateLimiter (1, 1, 1);
+
+
 @Bean
 KeyResolver userKeyResolver() {
+    return exchange -> Mono.justOrEmpty (exchange.getRequest().getHeaders().getFirst("user"))
+             .defaultIfEmpty ("anonymous");
 }
-return exchange -> Mono.justOrEmpty (exchange.getRequest().getHeaders().getFirst("user"))
-defaultIfEmpty ("anonymous");
 
-`
+```
 
 ### 🟦 Normal Spring Boot Service(Microservices)
 
@@ -52,7 +65,7 @@ public ResponseEntity<String> getJavaVersion() {
 private ResponseEntity<String> getJavaVersionFallback (Throwable t) {
 }
 
-````
+```
 
 ##### 🔵 B. Add properties:
 
@@ -60,11 +73,10 @@ private ResponseEntity<String> getJavaVersionFallback (Throwable t) {
 
 ```java
     resilience4j.ratelimiter:
-    configs:
-    default:
-    timeoutDuration:
-    5000
-    limitRefreshPeriod: 5000
-    limitForPeriod: 1
+     configs:
+      default:
+        timeoutDuration: 5000
+        limitRefreshPeriod: 5000
+        limitForPeriod: 1
 
 ```

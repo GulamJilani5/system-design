@@ -56,36 +56,39 @@ The circuit breaker filter intercepts requests routed through the gateway. If th
 Inside the method where we are creating a bean of `RouteLocator`, add a filter of circuit breaker like highlighted below and create a REST API handling the fallback **uri** `/contactSupport`.
 
 - **Add These two lines**
-  `.circuitBreaker (config -> config.setName("accountsCircuitBreaker") 
-.setFallbackUri ("forward: /contactSupport")))
-`
+
+```java
+  .circuitBreaker (config -> config.setName("accountsCircuitBreaker")
+  .setFallbackUri ("forward: /contactSupport")))
+```
+
 - **Adding above two lines in the RouteLocator**
-  `
+  ```java
   @Bean
   public RouteLocator myRoutes (RouteLocatorBuilder builder) {
   return builder.routes ()
-  .route (p -> p.path("/eazybank/accounts/\*_")
-  .filters (f -> f.rewritePath("/eazybank/accounts/(?<segment>._)","/${segment}")
-  .addResponseHeader ("X-Response-Time",new Date().toString())
-  .circuitBreaker (config -> config.setName("accountsCircuitBreaker")
-  .setFallbackUri ("forward: /contactSupport")))
-  .uri ("lb://ACCOUNTS")).build();
-  }
-
-`
+              .route (p -> p.path("/eazybank/accounts/\*_")
+              .filters (f -> f.rewritePath("/eazybank/accounts/(?<segment>._)","/${segment}")
+              .addResponseHeader ("X-Response-Time",new Date().toString())
+              .circuitBreaker (config -> config.setName("accountsCircuitBreaker")
+              .setFallbackUri ("forward: /contactSupport")))
+              .uri ("lb://ACCOUNTS")).build();
+       }
+  ```
 
 ##### 🔵 C. Add Properties:
 
 - Add the below properties inside the application.yml file.
 
-`resilience4j.circuitbreaker: 
-configs: 
-default: 
-slidingWindowSize: 10 
-permittedNumberOfCallsInHalfOpenState: 2 
-failureRateThreshold: 50 
-waitDurationInOpenState: 10000 
-`
+```java
+  resilience4j.circuitbreaker:
+   configs:
+    default:
+      slidingWindowSize: 10
+      permittedNumberOfCallsInHalfOpenState: 2
+      failureRateThreshold: 50
+      waitDurationInOpenState: 10000
+```
 
 ### 🟦 2. Normal Spring Boot Service(Inside the Microservices)
 
@@ -98,24 +101,28 @@ In a standard Spring Boot service, the Resilience4j Circuit Breaker is applied a
 
 ##### 🔵 A. Add maven dependency:
 
-`<dependency>
-<groupId>org.springframework.cloud</groupId>
-<artifactId>spring-cloud-starter-circuitbreaker-resilience4j</artifactId>
-</dependency>
-`
+```java
+  <dependency>
+      <groupId>org.springframework.cloud</groupId>
+      <artifactId>spring-cloud-starter-circuitbreaker-resilience4j</artifactId>
+  </dependency>
+```
 
 ##### 🔵 B. Add circuit breaker related changes in Feign Client interfaces like shown below:
 
-`@FeignClient(name= "cards", fallback = CardsFallback.class) 
-public interface CardsFeignClient { 
-@GetMapping(value = "/api/fetch", consumes = "application/json") 
-public ResponseEntity<CardsDto> fetchCardDetails(@RequestHeader("eazybank-correlation-id") 
-String correlationId, @RequestParam String mobileNumber); 
-}`
+```java
+@FeignClient(name= "cards", fallback = CardsFallback.class)
+public interface CardsFeignClient {
+@GetMapping(value = "/api/fetch", consumes = "application/json")
+public ResponseEntity<CardsDto> fetchCardDetails(@RequestHeader("eazybank-correlation-id")
+       String correlationId, @RequestParam String mobileNumber);
+}
+
+```
 
 ##### 🔵 C. Fallback Code
 
-`
+```java
 @Component
 public class Cards Fallback implements CardsFeignClient{
 @Override
@@ -124,22 +131,23 @@ return null;
 }
 }
 
-`
+```
 
 ##### 🔵 D. Add Properties:
 
 - Add the below properties inside the application.yml file.
 
-`spring: 
-cloud: 
-openfeign: 
-circuitbreaker: 
-enabled: true 
-resilience4j.circuitbreaker: 
-configs: 
-default: 
-slidingWindowSize: 5 
-failureRateThreshold: 50 
-waitDurationInOpenState: 10000 
-permittedNumberOfCallsInHalfOpenState: 2 
-`
+```java
+  spring:
+   cloud:
+    openfeign:
+     circuitbreaker:
+      enabled: true
+  resilience4j.circuitbreaker:
+   configs:
+    default:
+      slidingWindowSize: 5
+      failureRateThreshold: 50
+      waitDurationInOpenState: 10000
+      permittedNumberOfCallsInHalfOpenState: 2
+```
