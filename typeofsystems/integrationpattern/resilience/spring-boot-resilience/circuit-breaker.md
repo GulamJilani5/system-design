@@ -34,38 +34,112 @@
   - If successful → resume normal traffic (CLOSED).
   - If not → keep breaker OPEN.
 
-## ➡️ Two Ways to use the Circuit Breaker
+## ➡️ Two Steps involved to use the retry pattern
 
-### 🟦 1. Spring Cloud Gateway Pattern Filter
+### 🟦 1. Spring Cloud Gateway Pattern Filter(Inside the Edge Server/Routing Gateway)
 
 In Spring Cloud Gateway, the Resilience4j Circuit Breaker can be applied as a filter to manage requests routed through the gateway. This is useful for protecting downstream services by applying circuit breaker logic at the gateway level.
 
 - **How It Works**
 
-The circuit breaker filter intercepts requests routed through the gateway.
-If the downstream service fails (based on configured thresholds), the circuit breaker trips, and a fallback URI or response can be returned.
-This approach centralizes resilience logic at the gateway, avoiding the need to implement circuit breakers in each microservice.
+The circuit breaker filter intercepts requests routed through the gateway. If the downstream service fails (based on configured thresholds), the circuit breaker trips, and a fallback URI or response can be returned. This approach centralizes resilience logic at the gateway, avoiding the need to implement circuit breakers in each microservice.
 
-- Dependency(Uses Spring Webflux)
+##### 🔵 A. Add maven dependency: (Uses Spring Webflux)
 
 `<dependency>
 <groupId>org.springframework.cloud</groupId>
 <artifactId>spring-cloud-starter-circuitbreaker-reactor-resilience4j</artifactId>
 </dependency>`
 
-### 🟦 2. Normal Spring Boot Service
+##### 🔵 B. Add circuit breaker filter:
+
+Inside the method where we are creating a bean of `RouteLocator`, add a filter of circuit breaker like highlighted below and create a REST API handling the fallback **uri** `/contactSupport`.
+
+- **Add These two lines**
+  `.circuitBreaker (config -> config.setName("accountsCircuitBreaker") 
+.setFallbackUri ("forward: /contactSupport")))
+`
+- **Adding above two lines in the RouteLocator**
+  `
+  @Bean
+  public RouteLocator myRoutes (RouteLocatorBuilder builder) {
+  return builder.routes ()
+  .route (p -> p.path("/eazybank/accounts/\*_")
+  .filters (f -> f.rewritePath("/eazybank/accounts/(?<segment>._)","/${segment}")
+  .addResponseHeader ("X-Response-Time",new Date().toString())
+  .circuitBreaker (config -> config.setName("accountsCircuitBreaker")
+  .setFallbackUri ("forward: /contactSupport")))
+  .uri ("lb://ACCOUNTS")).build();
+  }
+
+`
+
+##### 🔵 C. Add Properties:
+
+- Add the below properties inside the application.yml file.
+
+`resilience4j.circuitbreaker: 
+configs: 
+default: 
+slidingWindowSize: 10 
+permittedNumberOfCallsInHalfOpenState: 2 
+failureRateThreshold: 50 
+waitDurationInOpenState: 10000 
+`
+
+### 🟦 2. Normal Spring Boot Service(Inside the Microservices)
 
 In a standard Spring Boot service, the Resilience4j Circuit Breaker is applied at the service layer using annotations or programmatic APIs. This is useful for protecting specific service methods that call external systems or dependencies.
 
 - **How It Works**
-  The @CircuitBreaker annotation wraps a method, monitoring its failures.
+  The `@CircuitBreaker` annotation wraps a method, monitoring its failures.
   If the failure rate exceeds the configured threshold, the circuit breaker trips, and a fallback method is invoked (if defined).
   This approach is granular, allowing circuit breaker logic to be applied to specific operations within a service.
 
-- Dependency
+##### 🔵 A. Add maven dependency:
 
 `<dependency>
 <groupId>org.springframework.cloud</groupId>
 <artifactId>spring-cloud-starter-circuitbreaker-resilience4j</artifactId>
 </dependency>
+`
+
+##### 🔵 B. Add circuit breaker related changes in Feign Client interfaces like shown below:
+
+`@FeignClient(name= "cards", fallback = CardsFallback.class) 
+public interface CardsFeignClient { 
+@GetMapping(value = "/api/fetch", consumes = "application/json") 
+public ResponseEntity<CardsDto> fetchCardDetails(@RequestHeader("eazybank-correlation-id") 
+String correlationId, @RequestParam String mobileNumber); 
+}`
+
+##### 🔵 C. Fallback Code
+
+`
+@Component
+public class Cards Fallback implements CardsFeignClient{
+@Override
+public ResponseEntity<CardsDto> fetchCardDetails(String correlationId, String mobileNumber) {
+return null;
+}
+}
+
+`
+
+##### 🔵 D. Add Properties:
+
+- Add the below properties inside the application.yml file.
+
+`spring: 
+cloud: 
+openfeign: 
+circuitbreaker: 
+enabled: true 
+resilience4j.circuitbreaker: 
+configs: 
+default: 
+slidingWindowSize: 5 
+failureRateThreshold: 50 
+waitDurationInOpenState: 10000 
+permittedNumberOfCallsInHalfOpenState: 2 
 `
