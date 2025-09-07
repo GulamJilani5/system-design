@@ -2,9 +2,9 @@
 
 # ⏺️ RATE LIMITTER PATTERN
 
-- Unrestricted and uncontrolled requests can lead to performance degradation, resource exhaustion, and potential denial-of-service (DoS) attacks.
-- When a user surpasses the permitted number of requests within a designated time frame, any additional requests are declined with an HTTP 429 - Too Many Requests status.
-- Additionally, the Rate Limiter pattern proves beneficial for providing services to users based on their subscription tiers. For instance, distinct rate limits can be defined for basic, premium, and enterprise users.
+- Unrestricted and uncontrolled requests can lead to `performance degradation`, `resource exhaustion`, and potential `denial-of-service (DoS)` attacks.
+- When a user surpasses the permitted number of requests within a designated time frame, any additional requests are declined with an **HTTP 429 - Too Many Requests status**.
+- **Additionally**, the **Rate Limiter** pattern proves beneficial for providing services to users based on their subscription tiers. For instance, distinct rate limits can be defined for **basic**, **premium**, and **enterprise** users.
 
 ## ➡️ Two Steps involved to use the retry pattern
 
@@ -12,7 +12,12 @@
 
 ##### 🔵 A. Add maven dependency:
 
-`spring-boot-starter-data-redis-reactive`
+```java
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-data-redis-reactive</artifactId>
+</dependency>
+```
 
 ##### 🔵 B. Add rate limitter filter:
 
