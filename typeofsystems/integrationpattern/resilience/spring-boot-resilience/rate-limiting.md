@@ -18,7 +18,7 @@
 
 Inside the method where we are creating a bean of `RouteLocator`, add a filter of rate limitter like highlighted below and creating supporting beans of `RedisRateLimiter` and `KeyResolver`.
 
-`
+````java
 @Bean
 public RouteLocator myRoutes (RouteLocatorBuilder builder) {
 return builder.routes ()
@@ -45,26 +45,26 @@ defaultIfEmpty ("anonymous");
 
 - Choose a method and mention rate limitter pattern related annotation along with the below configs. Post that create a **fallback** method matching the same method signature like we discussed inside the course (For example in the Circuit Breaker).
 
-`
+```java
 @RateLimiter (name = "getJavaVersion", fallbackMethod = "getJavaVersionFallback") @GetMapping("/java-version")
 public ResponseEntity<String> getJavaVersion() {
 }
 private ResponseEntity<String> getJavaVersionFallback (Throwable t) {
 }
 
-`
+````
 
 ##### 🔵 B. Add properties:
 
 - Add the below properties inside the `application.yml` file
 
-`
-resilience4j.ratelimiter:
-configs:
-default:
-timeoutDuration:
-5000
-limitRefreshPeriod: 5000
-limitForPeriod: 1
+```java
+    resilience4j.ratelimiter:
+    configs:
+    default:
+    timeoutDuration:
+    5000
+    limitRefreshPeriod: 5000
+    limitForPeriod: 1
 
-`
+```
