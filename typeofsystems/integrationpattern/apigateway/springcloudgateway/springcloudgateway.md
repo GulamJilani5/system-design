@@ -48,10 +48,9 @@ Filters modify the request (**before**) and response (**after**).
 
 ## Dependency ➡️
 
-`
+```java
 <dependency>
-<groupId>org.springframework.cloud</groupId>
-<artifactId>spring-cloud-starter-gateway</artifactId>
+  <groupId>org.springframework.cloud</groupId>
+  <artifactId>spring-cloud-starter-gateway</artifactId>
 </dependency>
-
-`
+```

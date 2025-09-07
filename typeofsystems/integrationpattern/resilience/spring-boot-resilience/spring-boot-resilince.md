@@ -10,21 +10,21 @@
 
 This dependency provides Resilience4j's core libraries and Spring Boot-specific integrations, such as configuration via application.yml and Actuator metrics.
 
-`<dependency>
+```java
+<dependency>
     <groupId>io.github.resilience4j</groupId>
     <artifactId>resilience4j-spring-boot3</artifactId>
 </dependency>
-`
+```
 
 ## ➡️ Redis For Rate Limiting
 
-`
+```java
 <dependency>
-<groupId>org.springframework.boot</groupId>
-<artifactId>spring-boot-starter-data-redis-reactive</artifactId>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-data-redis-reactive</artifactId>
 </dependency>
-
-`
+```
 
 ## ➡️ How these apply in Spring Cloud Gateway
 
