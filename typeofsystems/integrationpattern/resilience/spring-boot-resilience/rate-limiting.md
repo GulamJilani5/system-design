@@ -85,3 +85,5 @@ private ResponseEntity<String> getJavaVersionFallback (Throwable t) {
         limitForPeriod: 1
 
 ```
+
+## Redis Rate Limiter

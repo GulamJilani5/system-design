@@ -26,6 +26,24 @@ This dependency provides Resilience4j's core libraries and Spring Boot-specific 
 </dependency>
 ```
 
+- The algorithm used is the Token Bucket Algorithm.
+
+### 🟦 Below three concepts
+
+- replenishRate
+- burstCapacity
+- requestedTokens
+
+### 🟦 Example Scenario
+
+Imagine an API with a token bucket:
+
+- **replenishRate:** 5 tokens/second.
+- **burstCapacity:** 20 tokens.
+- **requestedTokens:** A client makes a request needing 8 tokens.
+
+If the bucket has `10 tokens`, the request (`8 tokens`) is allowed, leaving `2 tokens`. The bucket then replenishes at `5 tokens/second` until it reaches the `burstCapacity` of `20 tokens`. If a request needs `25 tokens`, it’s denied unless the bucket accumulates enough tokens over time.
+
 ## ➡️ How these apply in Spring Cloud Gateway
 
 - **Retry, Fallback, Circuit Breaker, Rate Limiting** → built-in filters (with Resilience4j).
