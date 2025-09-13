@@ -61,6 +61,11 @@
 
 - JSON, XML, Text, Binary Files, Java Objects.
 
+##### 🔵 Streaming
+
+- Continuous real-time flow of data that is processed sequentially, often in small chunks or events.
+- **e.g.:** Kafka, AWS → Amazon Kinesis
+
 ### 🟦 4.1. RabbitMQ
 
 - **RabbitMQ** is a popular open-source message broker that implements the **Advanced Message Queuing Protocol (AMQP).**
@@ -75,3 +80,41 @@
 - Kafka enables **decoupled, event-driven architectures** by allowing producers and consumers to operate  
   independently.
 - Real-time processing is supported using tools like **Kafka Streams** and **ksqlDB**.
+
+## ➡️ Event-Driven Architecture (EDA) (Ex: Gihub, React, Node.js)
+
+Systems communicate by producing, detecting, and reacting to events.
+
+An event is significant change in state (eg: orderPlaced, paymentDone etc.)
+
+Producer publishes the event asynchronously to a message system.
+
+Consumers subscribe to those events & read.
+
+Independently decoupled from the producer.
+
+(Correct state of an entity is event)
+
+👉 Eg: Kafka, RabbitMQ
+
+Act like a event Bus, and this event Bus distribute event by queueing & routing to producers.
+
+#### Event-Driven Architecture (EDA)
+
+| **Advantage**  | **Disadvantage**                                                                    |
+| -------------- | ----------------------------------------------------------------------------------- |
+| Availability   | Eventual consistency                                                                |
+| Easy Roll-back | Not applicable to Gateways                                                          |
+| Replacements   | Lesser control on services order                                                    |
+| Transactions   | Difficult to reason about flow of data (system) _(Hidden flow → Developer problem)_ |
+| Stores Intent  | Migration challenges                                                                |
+
+## ➡️ Pub-Sub vs Message Queue (Asynchronous Event)
+
+| **Aspect**           | **Pub-Sub**                                                               | **Message Queue**                                                          |
+| -------------------- | ------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
+| **Message Delivery** | One message → **multiple consumers**                                      | One message → **one consumer** (point-to-point)                            |
+| **RabbitMQ**         | Pub-sub with **Topic/Fanout exchanges**                                   | Work queue or **Direct exchange**                                          |
+| **Kafka**            | Uses **Topic** (best suited for pub-sub, mostly Kafka is used)            | Acts as a message queue using **Topic with a consumer group**              |
+| **AWS**              | —                                                                         | **AWS SQS** (Simple Queue Service)                                         |
+| **Use Case**         | Broadcasting events (e.g., notifications, logs, real-time data pipelines) | Task distribution (e.g., order processing, background jobs, worker queues) |

@@ -11,7 +11,7 @@
 
 ##### 🟦 Logs
 
-- structured event records (request errors, stack traces). Useful for forensic/debugging.
+- Structured event records (request errors, stack traces). Useful for forensic/debugging.
 
 ##### 🟦 Traces
 
