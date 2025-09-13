@@ -1,4 +1,6 @@
-# Authentication & Authorization
+🔵 🟢 🔴 ➡️ ⏺️ ⭕ 🟠 🟦 🟣 🟥 🟧 ✔️ ☑️ • ‣ → ⁕
+
+# ⏺️ Authentication & Authorization
 
 - Session based Authentication (Stateful)
 - Token based Authentication (Stateless, best for microservices)
