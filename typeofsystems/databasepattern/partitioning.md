@@ -9,7 +9,8 @@
 
 ### ➡️ Partitioning vs Sharding
 
-Aspect Partitioning Sharding
-Data Location All partitions exist on one server Each shard lives on a separate server
-Main Focus Organizing the data Scaling across multiple machines
-Data Split Splitting data within a system Splitting data across systems
+| Aspect            | Partitioning                       | Sharding                              |
+| ----------------- | ---------------------------------- | ------------------------------------- |
+| **Data Location** | All partitions exist on one server | Each shard lives on a separate server |
+| **Main Focus**    | Organizing the data                | Scaling across multiple machines      |
+| **Data Split**    | Splitting data within a system     | Splitting data across systems         |

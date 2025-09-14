@@ -2,15 +2,16 @@
 
 # ⏺️ Caching:
 
-Reduce new calls.
-Avoid repeated computations.
-Reduce DB load.
-Scale independently:
-Deployments are independent.
-Multiple results
-Can use same code, all the logic is same.
+- Reduce new calls.
+- Avoid repeated computations.
+- Reduce DB load.
+- Scale independently.
+- Deployments are independent.
+- Multiple results can use same code, all the logic is same.
 
 ### ➡️ Communication Flow with Caching(Request-Response)
+
+- check the image - `communicationflowcache.png`
 
 ##### 🟦 1. User → Server
 
@@ -63,9 +64,8 @@ Can use same code, all the logic is same.
 
 ### ➡️ cache policy:
 
-LRU → least recently used
-
-LFU → least frequently used
+- LRU → least recently used
+- LFU → least frequently used
 
 ### ➡️ Eventual Consistency
 
