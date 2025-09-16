@@ -93,4 +93,4 @@ A common solution is to generate a **Correlation ID** at the entry point of the 
 
 ### OpenTelemetry
 
-- It's been used with many langauges
+- It's been used with many languages
