@@ -85,12 +85,16 @@ A common solution is to generate a **Correlation ID** at the entry point of the 
     </dependency>
 ```
 
-## Modern Solution For distributed Tracing
+## ➡️ Modern Solution For distributed Tracing
 
-### Micrometer
+### 🟦 Micrometer
 
 - It's only used with java
 
-### OpenTelemetry
+### 🟦 OpenTelemetry
 
 - It's been used with many languages
+
+### 🟦 Storage and Query Layer (Backend)
+
+This is where **Tempo** fits—as the backend for **storing**, **querying**, and **analyzing traces**.
