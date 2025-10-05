@@ -1,3 +1,5 @@
+🔵🟢🔴➡️⭕🟠🟦🟣🟥🟧✔️⏺️ ☑️ • ‣ → ⁕
+
 ### 🟦 3.2. Apache Kafka
 
 - Kafka is a **distributed event streaming platform** that serves as a high-throughput **message broker**.

@@ -51,6 +51,7 @@
 
 - A Message Broker is a middleware that facilitates communication between different services or applications by
   translating messages between messaging protocols, routing, and queuing.
+- **Event Broker** is a type of message broker specialized for event-driven architecture (**EDA**).
 
 ##### 🔵 Why called Broker ?
 

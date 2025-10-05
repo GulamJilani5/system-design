@@ -1,3 +1,5 @@
+🔵🟢🔴➡️⭕🟠🟦🟣🟥🟧✔️⏺️ ☑️ • ‣ → ⁕
+
 ### 🟦 3.1. RabbitMQ
 
     RabbitMQ is a popular open-source message broker that implements the Advanced Message Queuing Protocol (AMQP).
