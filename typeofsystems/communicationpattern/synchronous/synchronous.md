@@ -11,7 +11,8 @@
 
 ### ➡️ 2. Rest Client
 
-- Modern alternate of RestTemplate(Replacement of RestTemplate).
+- Modern alternate of **RestTemplate**(Replacement of `RestTemplate`).
+- **RestClient** itself is synchronous by nature, but it can internally use **WebClient** (`reactive engine`) and therefore can perform non-blocking async calls if configured.
 
 ### ➡️ 3. Feign Client
 
