@@ -6,7 +6,7 @@ An API Gateway is a single entry point for all client requests to your microserv
 forwarding requests to the appropriate microservice and handling concerns like **routing**, **authentication**, **rate limiting**, etc.
 
 - **Gateway = Routing + Load Balancer**
-  - **Routing** → (Choose Service) - decides which microservice should handle the request.
+  - **API Gateway(Routing)** → (Choose Service) - decides which microservice should handle the request.
   - **Load Balancer** → (Choose Instance) - distributes traffic across multiple instances of that microservice.
 
 ### ➡️ Use Cases: Cross-Cutting Concerns Solved by API Gateway

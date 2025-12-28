@@ -14,7 +14,7 @@
 
 ## Usage
 
-- Add @EnableEurekaServer in the main Spring Boot application class.
+- Add **@EnableEurekaServer** in the main Spring Boot application class.
 - Acts as the registry center.
 
 ### Eureka Self-Preservation Mode
