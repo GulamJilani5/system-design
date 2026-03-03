@@ -10,22 +10,132 @@
 
 ### ➡️ RestClient Blocking Usage (default)
 
-- This is the normal way to use RestClient — similar to RestTemplate.
+- Configure `RestClient` as Bean (Production Way)
+- Instead of `RestClient.create()` every time, define a bean.
 
 ```java
-  RestClient client = RestClient.create();
+@Configuration
+public class RestClientConfig {
 
-String response = client.get()
-        .uri("http://localhost:8081/api/users")
-        .retrieve()
-        .body(String.class);  // BLOCKS until response is received
-
-System.out.println(response);
-
+    @Bean
+    public RestClient restClient() {
+        return RestClient.builder()
+                .baseUrl("http://localhost:8081")
+                .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                .build();
+    }
+}
 ```
 
+##### 🟦 Get Reqeust
+
+```java
+public List<UserDto> getAllUsers() {
+
+    return restClient.get()
+            .uri("/api/users")
+            .retrieve()
+            .body(new ParameterizedTypeReference<List<UserDto>>() {});
+            // .body(List.class) It will return List<LinkedHashMap>
+}
+```
+
+- Why ParameterizedTypeReference?
+  - Because Java loses generic type info at runtime.
 - `body(String.class)` blocks and returns the response.
 - **Thread** waits until server responds.
+
+##### 🟦 Post Request
+
+```java
+public UserDto createUser(CreateUserDto request) {
+
+    return restClient.post()
+            .uri("/api/users")
+            .body(request)
+            .retrieve()
+            .body(UserDto.class);
+}
+```
+
+- What happens internally?
+  - `Object` → Converted to **JSON** (Jackson)
+  - Sent in HTTP body
+  - Response JSON → Converted back to `UserDto`
+
+##### 🟦 Authentication (JWT Bearer Token)
+
+- In real enterprise systems, services communicate using:
+  - OAuth2, JWT, API Keys
+- Option 1: Pass Token Per Request
+
+```java
+public List<UserDto> getUsers(String token) {
+
+    return restClient.get()
+            .uri("/api/users")
+            .header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
+            .retrieve()
+            .body(new ParameterizedTypeReference<List<UserDto>>() {});
+}
+```
+
+- Option 2: Global Authentication (Best Practice)
+  - If all calls need authentication:
+
+```java
+@Bean
+public RestClient restClient() {
+    return RestClient.builder()
+            .baseUrl("http://localhost:8081")
+            .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+            .requestInterceptor((request, body, execution) -> {
+                request.getHeaders().setBearerAuth(getToken());
+                return execution.execute(request, body);
+            })
+            .build();
+}
+```
+
+##### 🟦 Real Enterprise Scenario (Microservices) 🔴
+
+- Order Service → calls → User Service
+- Auth handled via:
+  - Keycloak
+  - Okta
+  - Spring Authorization Server
+
+```java
+Order Service
+   ↓ (Bearer Token)
+User Service
+   ↓
+Validates JWT
+   ↓
+Returns Data
+```
+
+##### 🟦 Error Handling (Production Important) 🔴
+
+- Never ignore errors
+
+```java
+public List<UserDto> getUsers() {
+
+    return restClient.get()
+            .uri("/api/users")
+            .retrieve()
+            .onStatus(HttpStatusCode::is4xxClientError,
+                (request, response) -> {
+                    throw new RuntimeException("Client Error");
+                })
+            .onStatus(HttpStatusCode::is5xxServerError,
+                (request, response) -> {
+                    throw new RuntimeException("Server Error");
+                })
+            .body(new ParameterizedTypeReference<List<UserDto>>() {});
+}
+```
 
 ### ➡️ RestClient Non-Blocking Usage (Async)
 
