@@ -1,6 +1,6 @@
 🟢🔴⭕🟠🟣🟥🟧✔️ ☑️ • ‣ → ⁕ 🔵 🟦 ➡️ ⏺️
 
-# ⏺️ Synchronous Communication = (RestTemplate, Feign Client)
+# ⏺️ Synchronous Communication = (RestTemplate, RestTemplate, Feign Client)
 
 - one microservice sends a request to another and waits (blocks) until it receives a response.
 
