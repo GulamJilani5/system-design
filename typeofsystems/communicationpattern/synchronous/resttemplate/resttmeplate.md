@@ -41,6 +41,8 @@ ResponseEntity<List<User>> response =
         null,
         new ParameterizedTypeReference<List<User>>() {}
     );
+// Extracting response details
+List<User> users = response.getBody();
 ```
 
 - Calling External Service with Headers (JWT Token)
