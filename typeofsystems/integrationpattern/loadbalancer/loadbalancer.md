@@ -1,13 +1,12 @@
-🔵🟢🔴➡️⭕🟠🟦🟣🟥🟧✔️
-☑️ • ‣ → ⁕
+⏺️ ➡️ 🟦 🔵 🟢🔴⭕🟠🟣🟥🟧✔️ ☑️ • ‣ → ⁕
 
-# Two Main Category Of Load Balancer
+# ⏺️ Two Main Category Of Load Balancer
 
-## ➡️1. Deployment Location = Internal or External
+## ➡️ 1. Deployment Location = Internal or External
 
 → Focused on where the load balancer operates in your network.
 
-#### 🔵 External Load Balancer
+### 🟦 External Load Balancer
 
 - External LB = handles client → system traffic (gateway level).
 - Sits at the front end of your application, It's responsible for receiving requests from external clients
@@ -18,7 +17,6 @@
   which server to send them to.
 
 - **Common Tools:**
-
   - 🔴Spring Cloud Loadbalancer
   - 🔴ring Cloud Gateway
   - AWS ELB/ALB
@@ -27,7 +25,7 @@
 - **Example:** Server Side Load Balancer.
 - **Flow:** `Client ──► Load Balancer ──► API Gateway ──► Microservices.`
 
-#### 🔵 Internal Load Balancer
+### 🟦 Internal Load Balancer
 
 - Internal LB = handles service ↔ service traffic (within microservices).
 - Used when one microservice calls another.
@@ -47,128 +45,14 @@
 | **External Load Balancer** | Load balancer exposed to the **outside world** (Internet)                 | Route incoming user traffic to backend services or APIs | Load balancer (centralized)                   | AWS ALB/ELB (public), Cloudflare, Azure Front Door, API Gateway                   |
 | **Internal Load Balancer** | Load balancer used **within private network** (VPC, data center, cluster) | Route traffic **between microservices** (internal-only) | Load balancer, sidecar proxy, or client logic | AWS NLB (internal), NGINX (inside VPC), Istio (Envoy), Ribbon, Kubernetes Service |
 
-## ➡️2.Traffic Routing Mechanism
+## ➡️ 2.Traffic Routing Mechanism
 
 - This is how traffic is routed — based on who decides where the traffic goes.
 
-#### 🔵 Client-side Load Balancer(~30%)🟥
+### 🟦 Client-side Load Balancer(~30%)🟥
 
-- The client looks up service instances from service discovery
-- It then chooses which instance to send the request to
-- No central load balancer in between.
-- In Spring Boot microservices, you often see Client-Side LoadBalancer (Spring Cloud LoadBalancer) for internal service calls.
+- find `D:\Jilani\learning\system design\typeofsystems\integrationpattern\loadbalancer\springcloudloadbalancer\client-side-lb\clinet-side-lb.md`
 
-- **👉 Analogy:**
-  You go to a food court. You yourself decide whether to go to **KFC**, **McD**, or **Subway** counter (you know the list of counters).
+### 🟦 Server-side Load Balancer (~70%)🟥
 
-- **📦 Common Tools:**
-
-  - 🔴Spring Cloud LoadBalancer
-  - Netflix Ribbon + Eureka (Deprecatde)
-  - gRPC with round-robin logic
-
-- **🔍 Used When:**
-
-  - You want lightweight, decentralized balancing
-  - You control the client-side logic
-  - No need for complex routing or observability
-
-- **Flow:**
-
-  - Client (Service A)
-    │
-    ├─► Queries Service Discovery (e.g., Eureka)
-    │
-    └─► Picks an instance itself using load balancing logic (e.g., Round Robin)
-    ↓
-    ┌──────────────────────────────┐
-    │ Service B Instance (e.g., B1) │
-    └──────────────────────────────┘
-
-- 🧠 Routing logic is inside the client — no external proxy or load balancer.
-- `Client → (gets instance list from service registry) → Chooses instance → Calls service directly.`
-
-##### 🟣 Feign Client + LoadBalancer
-
-- **Feign Client** → used to call another microservice just by its service name (**e.g.**, `order-service`).
-- **Spring Cloud LoadBalancer** → automatically picks one instance (from multiple registered instances) of that service.
-- **Developer (We)** → don’t need to write any code to select which instance; it happens behind the scenes.
-
-#### 🔵 Server-side Load Balancer (~70%)🟥
-
-- A reverse proxy or gateway sits between the client and services.
-- The proxy/load balancer decides which instance to route to.
-- Clients only see the load balancer, not the actual services.
-- In Kubernetes, the default Service + kube-proxy behaves more like a server-side LoadBalancer.
-
-- **👉 Analogy:**
-  You go to the restaurant reception. The receptionist decides which waiter (service instance) will serve you.
-
-- **📦 Common Tools:**
-  - 🔴Spring Cloud Gateway,
-  - NGINX,
-  - AWS ELB/ALB,
-  - Kubernetes Services,
-  - HAProxy, API Gateway
-
-**🔍 Used When:**
-
-- Centralized control of traffic.
-- Front-door to external traffic.
-- Load balancing + TLS termination, rate limiting, etc.
-- **Flow:**
-  - Client (Service A or External User)
-    │
-    └─► Sends request to Central Load Balancer (e.g., Spring Cloud Gateway / NGINX / ELB)
-    │
-    ├─► Service B - Instance 1
-    ├─► Service B - Instance 2
-    └─► Service B - Instance 3
-- 🧠 Load balancer (proxy or gateway) chooses which backend instance to send the request to.
-- `Client → Server-Side Load Balancer → Backend Service Instance.`
-
-#### 🔵 Service Mesh Load Balancer
-
-- →Each service has a sidecar proxy (like Envoy) next to it.
-- →🔁 Service Mesh = Advanced Internal Load Balancer + more
-- →Requests are routed via these sidecars, which also handle:
-  - Load balancing
-  - Retries, timeouts
-  - Circuit breaking
-  - Security (mTLS)
-  - Observability (metrics/traces)
-
-**📦 Common Tools:**
-
-- Istio (Envoy sidecar)
-- Linkerd, Consul Connect
-
-🔍 **Used When:**
-
-- You need full control, reliability, and observability for internal communication
-- You want to separate business logic from networking logic
-- You’re operating at Kubernetes scale
-- **Flow:** Service A → Envoy A → Envoy B → Service B
-  - The Envoy proxy does:
-  - Internal Load Balancing to Service B instances
-  - Automatic retries
-  - Timeouts
-  - mTLS (encryption)
-  - Observability (logs/traces/metrics)
-- **Flow:**
-  - Service A
-    │
-    └─► Sends request to its local sidecar proxy (Envoy)
-    │
-    └─► Envoy decides and routes to:
-    │
-    ┌────────────┬────────────┐
-    │ │ │
-    Service B Sidecar → B1 B2 B3
-- 🧠 Sidecar proxies (e.g., Envoy) handle routing, retries, observability, etc. — not the services themselves.
-
-| **Type**                       | **Description**                                                                                                    | **Use Case**                                                              | **Decision Made By**              | **Tools/Examples**                                            |
-| ------------------------------ | ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------- | --------------------------------- | ------------------------------------------------------------- |
-| **Client-side Load Balancer**  | The **calling service (client)** chooses which instance to call using service discovery                            | When you want lightweight in-app balancing without centralized proxy      | **The client itself**             | Netflix Ribbon, Spring Cloud LoadBalancer, gRPC, Feign client |
-| **Server-side Load Balancer**  | A **central load balancer** or reverse proxy chooses the backend instance                                          | Entry-point load balancing (e.g., web apps, APIs), centralized control    | **The proxy/load balancer**       | AWS ALB/ELB, NGINX, HAProxy, Kubernetes Service               |
-| **Service Mesh Load Balancer** | Each service has a **sidecar proxy** which performs load balancing with advanced features (mTLS, retries, tracing) | Full observability, security, and control over service-to-service traffic | **Sidecar proxies (e.g., Envoy)** | Istio, Linkerd, Consul Connect, Kuma                          |
+- find `D:\Jilani\learning\system design\typeofsystems\integrationpattern\loadbalancer\springcloudloadbalancer\server-side-lb\server-side-lb.md`

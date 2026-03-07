@@ -1,6 +1,6 @@
 # Flow Of A Request Using Feign + Eureka + LoadBalancer
 
-## 🔄 Flow: Service A calls Service B using Feign
+## Flow: Service A calls Service B using Feign
 
 1. Service A → Feign Client Call
 2. Feign → Service Discovery (Eureka)
