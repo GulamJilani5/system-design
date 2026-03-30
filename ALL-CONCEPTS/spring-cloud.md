@@ -28,4 +28,8 @@
 
 ##### 🟦 SAGA Pattern
 
+- Find `D:\Jilani\learning\system design\typeofsystems\databasepattern\saga.md`
+
 ##### 🟦 CQRS
+
+- Find `D:\Jilani\learning\system design\typeofsystems\databasepattern\cqrs.md`
