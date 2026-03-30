@@ -26,6 +26,6 @@
 
 ##### 🟦 RabbitMQ / Kafka
 
-##### 🟦 SAGA
+##### 🟦 SAGA Pattern
 
 ##### 🟦 CQRS

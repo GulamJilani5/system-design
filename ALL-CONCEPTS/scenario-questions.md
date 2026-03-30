@@ -1,6 +1,6 @@
 ⏺️ ➡️ 🟦 🔵 🟢🔴⭕🟠🟣🟥🟧✔️ ☑️ • ‣ → ⁕
 
-## ⏺️ Scenario Based Questions
+# ⏺️ Scenario Based Questions
 
 - SQL vs NoSQL
 - DB vs Cache
