@@ -1,14 +1,22 @@
-# Interface Segregation Principle (ISP)
+⏺️ ➡️ 🟦 🔵 🟢🔴⭕🟠🟣🟥🟧✔️ ☑️ • ‣ → ⁕
+
+# ⏺️ Interface Segregation Principle (ISP)
 
 The **ISP** states that clients should not be forced to depend on interfaces they don’t use. In a Spring Boot microservices context, ISP ensures that interfaces are focused, reducing coupling and improving maintainability.
 
+- ISP = No unnecessary methods in a class
+- If you see:
+  - `UnsupportedOperationException`
+  - Empty methods
+    - It's a strong sign ISP is violated.
+
 ---
 
-### Payment Example Demonstrating Interface Segregation Principle (ISP) in Spring Boot
+### ➡️ Payment Example Demonstrating Interface Segregation Principle (ISP) in Spring Boot
 
 This example splits a bloated interface into smaller, focused ones for payment processing and reporting, ensuring clients only depend on what they need.
 
-##### PaymentProcessor.java (Interface)
+##### 🟦 PaymentProcessor.java (Interface)
 
 ```java
 package com.example.payment;
@@ -20,7 +28,7 @@ public interface PaymentProcessor {
 
 ---
 
-##### PaymentReporter.java (Interface)
+##### 🟦 PaymentReporter.java (Interface)
 
 ```java
 package com.example.payment;
@@ -32,7 +40,7 @@ public interface PaymentReporter {
 
 ---
 
-##### PayPalProcessor.java
+##### 🟦 PayPalProcessor.java
 
 ```java
 package com.example.payment;
@@ -56,7 +64,7 @@ public class PayPalProcessor implements PaymentProcessor, PaymentReporter {
 
 ---
 
-##### StripeProcessor.java
+##### 🟦 StripeProcessor.java
 
 ```java
 package com.example.payment;
@@ -75,7 +83,7 @@ public class StripeProcessor implements PaymentProcessor {
 
 ---
 
-##### PaymentService.java
+##### 🟦 PaymentService.java
 
 ```java
 package com.example.payment;
@@ -107,7 +115,7 @@ public class PaymentService {
 
 ---
 
-##### Payment.java (Entity)
+##### 🟦 Payment.java (Entity)
 
 ```java
 package com.example.payment;
@@ -132,7 +140,7 @@ public class Payment {
 
 ---
 
-##### PaymentRepository.java
+##### 🟦 PaymentRepository.java
 
 ```java
 package com.example.payment;
@@ -145,7 +153,7 @@ public interface PaymentRepository extends JpaRepository<Payment, Long> {
 
 ---
 
-##### ISP Adherence
+##### 🟦 ISP Adherence
 
 - **Focused Interfaces**: `PaymentProcessor` and `PaymentReporter` are separate interfaces. Clients needing only processing (e.g., `PaymentService` for processing) don’t depend on reporting methods.
 - **Example Benefit**: `StripeProcessor` implements only `PaymentProcessor` because it doesn’t support reporting, avoiding forced implementation of unused methods.
@@ -156,3 +164,91 @@ public interface PaymentRepository extends JpaRepository<Payment, Long> {
   }
   ```
 - **Notes**: Avoid bloated interfaces (e.g., combining processing and reporting). Use ISP to keep microservices APIs clean and focused, especially for inter-service communication.
+
+### ➡️ Sending Email/SMS Example
+
+##### 🟦 Imagine you create a big interface:
+
+```java
+public interface EmailService {
+    void sendEmail(String message);
+    void sendSMS(String message);
+    void sendPushNotification(String message);
+}
+```
+
+##### 🟦 Now your class:
+
+```java
+public class GmailService implements EmailService {
+
+    public void sendEmail(String message) {
+        System.out.println("Email sent via Gmail");
+    }
+
+    public void sendSMS(String message) {
+        // ❌ Not needed
+        throw new UnsupportedOperationException("SMS not supported");
+    }
+
+    public void sendPushNotification(String message) {
+        // ❌ Not needed
+        throw new UnsupportedOperationException("Push not supported");
+    }
+}
+```
+
+- GmailService only needs email
+- But forced to implement:
+  - sendSMS() ❌
+  - sendPushNotification() ❌
+- Leads to:
+  - Unnecessary code
+  - Runtime exceptions
+  - Poor design
+
+##### 🟦 Good Design (Following ISP)
+
+- Split into smaller interfaces
+
+```java
+public interface EmailService {
+    void sendEmail(String message);
+}
+
+public interface SMSService {
+    void sendSMS(String message);
+}
+
+public interface PushNotificationService {
+    void sendPushNotification(String message);
+}
+```
+
+##### 🟦 Now GMAIL Implementation is Clean
+
+```java
+public class GmailService implements EmailService {
+
+    public void sendEmail(String message) {
+        System.out.println("Email sent via Gmail");
+    }
+}
+```
+
+##### 🟦 SMS Implementation is also clean
+
+```java
+public class TwilioSMSService implements SMSService {
+
+    public void sendSMS(String message) {
+        System.out.println("SMS sent via Twilio");
+    }
+}
+```
+
+##### 🟦
+
+```java
+
+```

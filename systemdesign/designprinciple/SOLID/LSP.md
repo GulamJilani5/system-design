@@ -1,14 +1,18 @@
-# Liskov Substitution Principle (LSP)
+⏺️ ➡️ 🟦 🔵 🟢🔴⭕🟠🟣🟥🟧✔️ ☑️ • ‣ → ⁕
 
-The **LSP** states that subtypes must be substitutable for their base types without altering the correctness of the program. In a Spring Boot microservices context, LSP ensures that different implementations of an interface (**e.g.**, `payment processors`) can be swapped without breaking the application.
+# ⏺️ Liskov Substitution Principle (LSP)
+
+- LSP means any implementation of an interface should be replaceable without breaking the system.
+- In Spring Boot, when we add a new implementation like **RazorpayProcessor**, it works seamlessly if it follows the same contract as existing implementations.
+- However, if Razorpay introduces additional constraints like minimum amount validation that other implementations don’t have, then substituting it breaks behavior — which is a violation of LSP.
 
 ---
 
-### Payment Example Demonstrating Liskov Substitution Principle (LSP) in Spring Boot
+### ➡️ Payment Example Demonstrating Liskov Substitution Principle (LSP) in Spring Boot
 
 This example reuses the `PaymentProcessor` interface from the OCP example, showing how `PayPalProcessor` and `StripeProcessor` can be substituted in `PaymentService` without affecting its behavior.
 
-##### PaymentProcessor.java (Interface)
+##### 🟦 PaymentProcessor.java (Interface)
 
 ```java
 package com.example.payment;
@@ -20,7 +24,7 @@ public interface PaymentProcessor {
 
 ---
 
-##### PayPalProcessor.java
+##### 🟦 PayPalProcessor.java
 
 ```java
 package com.example.payment;
@@ -39,7 +43,7 @@ public class PayPalProcessor implements PaymentProcessor {
 
 ---
 
-##### StripeProcessor.java
+##### 🟦 StripeProcessor.java
 
 ```java
 package com.example.payment;
@@ -58,7 +62,7 @@ public class StripeProcessor implements PaymentProcessor {
 
 ---
 
-##### PaymentService.java
+##### 🟦 PaymentService.java
 
 ```java
 package com.example.payment;
@@ -84,7 +88,7 @@ public class PaymentService {
 
 ---
 
-##### PaymentController.java
+##### 🟦 PaymentController.java
 
 ```java
 package com.example.payment;
@@ -112,7 +116,7 @@ public class PaymentController {
 
 ---
 
-##### Payment.java (Entity)
+##### 🟦 Payment.java (Entity)
 
 ```java
 package com.example.payment;
@@ -137,7 +141,7 @@ public class Payment {
 
 ---
 
-##### PaymentRepository.java
+##### 🟦 PaymentRepository.java
 
 ```java
 package com.example.payment;
@@ -150,23 +154,35 @@ public interface PaymentRepository extends JpaRepository<Payment, Long> {
 
 ---
 
-##### LSP Adherence
+##### 🟦 LSP Adherence - If trying to add Razorpay. 🔴
 
-- **Substitutability**: Both `PayPalProcessor` and `StripeProcessor` implement `PaymentProcessor` and can be injected into `PaymentService` without changing its behavior. Both set the payment status appropriately, adhering to the contract.
-- **Spring Boot Feature**: Use `@Qualifier` or `@Primary` to select specific implementations:
+- **It is correct**:
+  - All implementations behave the same way (no surprises)
+  - No extra conditions needed
+  - No breaking changes in `PaymentService`
+  - You can swap: PayPal → Stripe → Razorpay, without modifying service logic
 
-  ```java
-  @Service
-  public class PaymentService {
-      private final PaymentProcessor paymentProcessor;
+```java
+@Service
+public class RazorpayProcessor implements PaymentProcessor {
+    public void processPayment(double amount) {
+        System.out.println("Paid via Razorpay");
+    }
+}
+```
 
-      public PaymentService(@Qualifier("payPalProcessor") PaymentProcessor paymentProcessor, PaymentRepository paymentRepository) {
-          this.paymentProcessor = paymentProcessor;
-          this.paymentRepository = paymentRepository;
-      }
-      // ...
-  }
-  ```
+- **Violation Example**:
+  - Razorpay introduces additional(extra) constraints like minimum amount validation that other implementations don’t have, then substituting it breaks behavior — which is a violation of LSP.
 
-- **Violation Example**: If `StripeProcessor` required a different `Payment` structure or threw unexpected exceptions, it would violate LSP, as substituting it for `PayPalProcessor` would break `PaymentService`.
-- **Notes**: Ensure all implementations adhere to the interface contract. Test substitutability using unit tests with mocking frameworks like Mockito.
+```java
+@Service
+public class RazorpayProcessor implements PaymentProcessor {
+
+    public void processPayment(double amount) {
+        if (amount < 100) {
+            throw new RuntimeException("Minimum amount is 100");
+        }
+        System.out.println("Paid via Razorpay");
+    }
+}
+```

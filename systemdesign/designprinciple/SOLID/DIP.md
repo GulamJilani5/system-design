@@ -2,6 +2,9 @@
 
 The **DIP** states that high-level modules should not depend on low-level modules; both should depend on abstractions. Abstractions should not depend on details. In a Spring Boot microservices context, DIP ensures loose coupling, allowing you to swap implementations (**e.g.**, `payment processors`) easily.
 
+- Spring's IoC (Inversion of Control) container is one of the best real-world implementations of the Dependency Inversion Principle.
+- In custom classes(`@Service`, `@Repository` & `@Configuration` + `@Bean`), we follow DIP by depending on interfaces instead of concrete classes and using **constructor injection** or **@Autowired** Spring resolves and injects the appropriate implementation at runtime.
+
 ---
 
 ### Payment Example Demonstrating Dependency Inversion Principle (DIP) in Spring Boot
