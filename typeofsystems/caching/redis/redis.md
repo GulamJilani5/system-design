@@ -1,4 +1,8 @@
-## Dependency
+⏺️ ➡️ 🟦 🔵 🟢🔴⭕🟠🟣🟥🟧✔️ ☑️ • ‣ → ⁕
+
+# ⏺️ Redis
+
+### ➡️ Dependency
 
 `<dependencies>
     <!-- Spring Boot Starter Cache -->

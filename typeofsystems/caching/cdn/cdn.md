@@ -8,16 +8,8 @@
 
 ### ➡️ Diagram:
 
-`
-User → CDN → Server → HTML Page
-
-`
+- User → CDN → Server → HTML Page
 
 ➡️ What data CDN serves?
 
-- **Ex:**
-
-`
-static data → videos, images, files, HTML pages, CSS, JS
-
-`
+- static data → videos, images, files, HTML pages, CSS, JS
