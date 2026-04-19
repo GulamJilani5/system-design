@@ -1,6 +1,6 @@
 ⏺️ ➡️ 🟦 🔵 🟢🔴⭕🟠🟣🟥🟧✔️ ☑️ • ‣ → ⁕
 
-# ⏺️ Factory Method
+# ⏺️ Factory Pattern
 
 - Creates objects without exposing creation logic
 - Returns object based on input or condition
