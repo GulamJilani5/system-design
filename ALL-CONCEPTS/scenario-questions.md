@@ -16,12 +16,12 @@
 
 ### ➡️ Two microservices sharing the same database – is it a good approach?
 
-- Find `case-studies/case-studies-2.md`
+- Find `https://github.com/GulamJilani5/system-design/blob/main/case-studies/case-studies-2.md`
 
 ### ➡️ Two microservices updating the same row simultaneously – how to handle it?
 
-- Find `case-studies/case-studies-2.md`
+- Find `https://github.com/GulamJilani5/system-design/blob/main/case-studies/case-studies-2.md`
 
 ### ➡️ If one microservice goes down, how does it impact the system? How do you handle it?
 
-- Find `case-studies/case-studies-2.md`
+- Find `https://github.com/GulamJilani5/system-design/blob/main/case-studies/case-studies-2.md`
