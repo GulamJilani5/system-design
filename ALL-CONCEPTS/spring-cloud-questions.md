@@ -43,5 +43,3 @@
 ### ➡️ When to use WebFlux for reactive microservices.
 
 ### ➡️ CQRS and Event Sourcing: When and why to use them.
-
-### ➡️
