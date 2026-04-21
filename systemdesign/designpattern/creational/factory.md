@@ -1,6 +1,6 @@
 ⏺️ ➡️ 🟦 🔵 🟢🔴⭕🟠🟣🟥🟧✔️ ☑️ • ‣ → ⁕
 
-# ⏺️ Factory Pattern
+# ⏺️ Factory Method
 
 - Creates objects without exposing creation logic
 - Returns object based on input or condition
@@ -201,3 +201,63 @@ payment.pay();
   - Object creation is complex.
   - Multiple implementations exist.
   - You want to follow OCP (**Open/Closed Principle**).
+
+# ⏺️ Static Factory Method
+
+- This pattenr has been used in my own application(KMP)
+- `of()` is just a custom static method name used to create objects.
+  - It replaces constructors for cleaner code
+
+```java
+public class SmsQuery {
+
+    private String smsBody;
+    private String phoneNumber;
+
+    private SmsQuery(String smsBody, String phoneNumber) {
+        this.smsBody = smsBody;
+        this.phoneNumber = phoneNumber;
+    }
+
+    public static SmsQuery of(String smsBody, String phoneNumber) {
+        return new SmsQuery(smsBody, phoneNumber);
+    }
+}
+```
+
+- usage
+
+```java
+SmsQuery query = SmsQuery.of("Hello", "9876543210");
+
+```
+
+- Instead of
+
+```java
+SmsQuery query = new SmsQuery("Hello", "9876543210");
+```
+
+## ➡️ Benefits of using of()
+
+- More readable
+- Can control object creation
+- Can return cached objects
+- Can hide complex logic
+
+## ➡️ Factory in java(real world - inbuilt)
+
+- `List.of(...)`
+- `Map.of(...)`
+- `Optional.of(...)`
+
+## ➡️ Naming conventions
+
+- We can use in our applications
+
+| Method          | Meaning                     |
+| --------------- | --------------------------- |
+| `of()`          | Simple creation             |
+| `from()`        | Convert from another object |
+| `valueOf()`     | Parse/convert               |
+| `getInstance()` | Singleton                   |
