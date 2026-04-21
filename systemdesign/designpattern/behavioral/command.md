@@ -2,28 +2,91 @@
 
 # ⏺️ Command Pattern
 
-- This design falls under Behavioral patterns. It is primarily similar to the Command pattern, where the request (Query) is encapsulated as an object and executed via a handler.
-- It can also resemble Strategy pattern depending on how different handlers are implemented.
+- Command Pattern encapsulates a request as an object, allowing you to parameterize clients with different requests and decouple sender from receiver.
 
-### ➡️ V execute(Q, var1)
+### ➡️ Key Components
 
-- This Pattern used in our Project(KMP)
-- This usually represents a generic command/handler pattern (often seen in CQRS / Service Layer / Strategy-like designs).
+##### 🟦 Command
+
+- `SmsQuery`, `EmailQuery`, `PortalQuery`
 
 ```java
-V execute(Q query, Var1 var1)
+public class SmsQuery {
+    private String message;
+    private String phoneNumber;
+
+    public static SmsQuery of(String message, String phoneNumber) {
+        SmsQuery query = new SmsQuery();
+        query.setMessage(message);
+        query.setPhoneNumber(phoneNumber);
+        return query;
+    }
+}
 ```
 
-- Q → Input (Query / Request / Command)
-- V → Output (Response / Result)
-- var1 → Execution context / helper / dependency
-  - ogged-in user, Unique ID, Auth info
+##### 🟦 Invoker
 
-##### 🟦 execute() → Orchestrator method
+- `sendSmsWrapper.execute()`
 
-- Orchestrator Layer, Inside it, We typically do:
-  - Validation
-  - Business logic
-  - DB calls
-  - External API calls
-  - Mapping DTO → Entity
+```java
+return sendSmsWrapper.execute(SmsQuery.of(smsBody, phoneNumber));
+```
+
+##### 🟦 Receiver
+
+- Actual service sending SMS/Email
+
+##### 🟦 Client
+
+- Our service method
+
+### ➡️ Flow (Very Important for Interview)
+
+- Client(A Service which send the SMS/Email) creates command object
+  - `SmsQuery.of(...)`
+- Passes it to invoker
+  - `sendSmsWrapper.execute(query)`
+- Invoker calls receiver internally
+  - SMS/Email service sends message
+
+### ➡️ Why Use Command Pattern?
+
+- Decouples who sends request from who executes
+- Makes system extensible
+- Supports queue, logging, retry
+
+### ➡️ Real-world Use Cases
+
+- Messaging systems (SMS / Email / Portal Message) In Our CASE
+- Job queues (Kafka, RabbitMQ)
+- Undo/Redo operations
+- API request objects
+
+# ⏺️ COMBINED UNDERSTANDING Of Command & Strategy
+
+- Command Pattern
+
+```java
+SmsQuery.of(...)
+EmailQuery.of(...)
+PortalQuery.of(...)
+```
+
+- Strategy Pattern
+
+```java
+sendSmsWrapper.execute(...)
+sendEmailWrapper.execute(...)
+sendPortalWrapper.execute(...)
+```
+
+- Query (Command) = "WHAT to do"
+- Wrapper (Strategy) = "HOW to do"
+
+### ➡️Interview Style
+
+- In our project, we used a combination of Command and Strategy patterns.
+- We created **Query** objects like `SmsQuery`, `EmailQuery` & `PortalQuery` which encapsulate the request — this follows **Command Pattern**.
+- Then we used a common **interface** `ServiceWrapper` with different implementations like `sendSmsWrapper` and `sendEmailWrapper` & `sendPortalWrapper` — this follows **Strategy Pattern**.
+- At runtime, we pass different query objects to different wrappers, which execute the logic accordingly.
+- This design helped us keep the system extensible and avoid conditional logic.
