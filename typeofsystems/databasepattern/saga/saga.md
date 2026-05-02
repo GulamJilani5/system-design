@@ -184,12 +184,13 @@ public class OrderSagaOrchestrator {
 }
 ```
 
-##### 🟦 Each Step using WebClient
+- **Each Step using WebClient**
 
 - These methods are defined inside the `OrderSagaOrchestrator` class
 - WebClient calling respective microservices
 
-- ###### 🔵 STEP 1: Create Order
+###### 🔵 STEP 1: Create Order
+
 - Calls Order Service
 - Stores orderId
 - Marks step as completed
@@ -211,7 +212,8 @@ private Long createOrder(OrderRequest req, SagaState saga) {
 }
 ```
 
-- ###### 🔵 STEP 2: Process Payment
+###### 🔵 STEP 2: Process Payment
+
 - Calls Payment Service
 - Updates saga state
 - Throws exception if fails
@@ -230,7 +232,8 @@ private void processPayment(OrderRequest req, SagaState saga) {
 }
 ```
 
-- ###### 🔵 STEP 3: Reserve Inventory
+###### 🔵 STEP 3: Reserve Inventory
+
 - Reserves stock
 - Marks inventory step complete
 - Failure triggers rollback
@@ -249,7 +252,8 @@ private void reserveInventory(OrderRequest req, SagaState saga) {
 }
 ```
 
-- ###### 🔵 STEP 4: Confirm Order
+###### 🔵 STEP 4: Confirm Order
+
 - Final step of saga
 - Confirms successful order
 - No state update needed
