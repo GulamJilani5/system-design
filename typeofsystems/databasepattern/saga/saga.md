@@ -8,6 +8,8 @@
   - Saga = Do step-by-step + Undo if failure
 - Break transaction into steps
   - If any step fails → run undo (compensation)
+- It is like converted version of **Facade**
+  - Find `D:\Jilani\learning\system design\systemdesign\designpattern\structural\facade\facade.md`
 
 ```text
 Debit → Credit
