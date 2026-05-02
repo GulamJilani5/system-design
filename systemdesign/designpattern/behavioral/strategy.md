@@ -3,7 +3,7 @@
 # ⏺️ Strategy Pattern
 
 - Defines a family of algorithms, encapsulates each one, and makes them interchangeable. It allows the algorithm to vary independently from clients that use it.
-- COMBINED UNDERSTANDING Of Command & Strategy 🔴
+- COMBINED UNDERSTANDING Of Command & Strategy used in my KMP code🔴
   - Find `D:\Jilani\learning\system design\systemdesign\designpattern\behavioral\command.md`
 
 ### ➡️ Key Components:
