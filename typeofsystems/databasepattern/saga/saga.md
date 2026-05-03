@@ -2,6 +2,7 @@
 
 # ⏺️ SAGA Pattern
 
+- Handles consistency across multiple services (microservices)
 - Real Use Case
   - Find `D:\Jilani\learning\system design\case-studies\case-studies-1.md`
 - “If something fails → undo what I already did”
@@ -18,6 +19,25 @@ Debit → Credit
              ↓
          Refund (Undo)
 ```
+
+### ➡️ @Transaction vs Saga Pattern
+
+##### 🟦 @Transaction
+
+- Handles data consistency within a single service
+- Typically single database (multiple tables allowed)
+- Uses rollback
+- **ACID** = properties of a transaction (Atomicity, Consistency, Isolation, Durability)
+  - @Transactional = Spring’s way to apply those properties to database operations
+- All or nothing (atomic) → if any step fails, everything is rolled back instantly
+
+##### 🟦 Saga Pattern
+
+- Handles consistency across multiple services (microservices)
+- Works with multiple databases
+- Uses compensating actions (not rollback)
+- Follows eventual consistency
+- Step-by-step execution → if a step fails, previous successful steps are undone via compensation
 
 ### ➡️ Worker consuming Kafka
 
