@@ -1,27 +1,147 @@
-### ➡️ 3. Feign Client
+⏺️ ➡️ 🟦 🔵 🟢🔴⭕🟠🟣🟥🟧✔️ ☑️ 🔹 • ‣ → ⁕
 
-Feign Client is a declarative HTTP client, part of Spring Cloud, that simplifies REST API calls by using
-annotations to define client interfaces. It abstracts much of the boilerplate code required in RestTemplate.
+# ⏺️ Feign Client
 
-##### **🔵How It Works**
+- Feign Client is a declarative HTTP client, part of Spring Cloud, that simplifies REST API calls by using
+  annotations to define client interfaces.
+- It abstracts much of the boilerplate code required in `RestTemplate`.
+- **Feign** → builds HTTP (method + headers + body + endpoint)
+- **Eureka** → gives host:port
 
-- **Configuration:** Define an interface annotated with @FeignClient, specifying the target service’s URL or name (if using service discovery like Eureka).
-- **Usage:** Add methods with annotations like @GetMapping, @PostMapping, etc., to define HTTP calls. Feign generates the implementation at runtime.
-- **Execution:** The client sends an HTTP request and waits for the response, blocking the calling thread.
+### ➡️ Get Request Example
 
-##### **🔵When to Use**
+##### 🟦 Flow Diagram
+
+```java
+1. Service calls → userClient.getUser(...)
+2. Feign reads @GetMapping → method = GET, path = /users/1
+3. Feign asks Eureka → "where is user-service?"
+4. Eureka returns → http://192.168.1.10:8081
+5. Feign builds full URL:
+   http://192.168.1.10:8081/users/1
+6. Adds header:
+   Authorization: Bearer xyz
+7. Sends HTTP request
+```
+
+##### 🟦 Feign Client Interface
+
+- `@GetMapping("/users/{id}")`
+- Feign client gets the `IP Address(host) & Port` from the **Eureka Server** and append the **endpoint** `user/1`. `host:port + endpoint`
+- So final **URL** becomes `http://192.168.1.10:8081/users/1`
+-
+
+```java
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+
+@FeignClient(name = "user-service") // service name from Eureka
+public interface UserClient {
+
+    @GetMapping("/users/{id}")
+    User getUserById(@PathVariable("id") Long id, @RequestHeader("Authorization") String token);
+    // GET http://192.168.1.10:8081/users/1
+    // Authorization: Bearer xyz
+}
+```
+
+##### 🟦 Call Feign Client in Service Layer
+
+- Service provides Header & Body and all the inputs and it is send to the **Feign Client**
+- Feind client use them to call external service
+
+```java
+@Service
+public class OrderService {
+
+    private final UserClient userClient;
+
+    public OrderService(UserClient userClient) {
+        this.userClient = userClient;
+    }
+    String token = "xyz";
+
+    public void createOrder(Long userId) {
+        User user = userClient.getUser(1L, "Bearer " + token); // 🔥 actual HTTP call
+
+        System.out.println("User Name: " + user.getName());
+    }
+}
+```
+
+### ➡️ Post Request Example
+
+##### 🟦 Flow Diagram
+
+```java
+1. Service calls → createUser(...)
+2. Feign reads @PostMapping → method = POST, path = /users
+3. Feign asks Eureka → get host:port
+4. Example:
+   http://192.168.1.10:8081
+5. Feign builds full URL:
+   http://192.168.1.10:8081/users
+6. Converts object → JSON body
+7. Adds header:
+   Authorization: Bearer xyz
+8. Sends HTTP request
+```
+
+##### 🟦 Feign Client Interface
+
+```java
+@FeignClient(name = "user-service")
+public interface UserClient {
+
+    @PostMapping("/users")
+    User createUser(
+        @RequestBody User user,
+        @RequestHeader("Authorization") String token
+    );
+}
+```
+
+##### 🟦 Call Feign Client in Service Layer
+
+```java
+@Service
+public class OrderService {
+
+    private final UserClient userClient;
+
+    public OrderService(UserClient userClient) {
+        this.userClient = userClient;
+    }
+
+    public void createOrder() {
+
+        User user = new User("John");
+        String token = "xyz";
+        String tokenReq = "Bearer" + token;
+
+        // Passing body and header values to the Feign Client
+        userClient.createUser(user, tokenReq);
+    }
+}
+
+```
+
+### ➡️ Use Case, Pros & Cons
+
+##### 🟦 When to Use
 
 - **Microservices with service discovery:** Ideal when using Spring Cloud with Eureka, Consul, or similar for dynamic service resolution.
 - **Complex ecosystems:** Suitable for microservices architectures with multiple services and load balancing.
 - **Resilience patterns:** When you need built-in support for retries, circuit breakers, or fallbacks (via Hystrix or Resilience4j).
 
-##### **🔵Pros**
+##### 🟦 Pros
 
 - **Declarative:** Uses annotations for a clean, readable interface, reducing boilerplate code.
 - **Less error-prone:** Automatically handles serialization/deserialization and HTTP details.
 - **Extensible:** Supports custom encoders, decoders, and error handling.
 
-##### **🔵Cons**
+##### 🟦 Cons
 
 - **Performance:** Slightly higher overhead due to abstraction layers compared to RestTemplate
 - **Less flexibility:** Less control over low-level HTTP details compared to RestTemplate.
