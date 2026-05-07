@@ -1,14 +1,16 @@
-🔵🟢🔴➡️⭕🟠🟦🟣🟥🟧✔️⏺️ ☑️ • ‣ → ⁕
+⏺️ ➡️ 🟦 🔵 🟢🔴⭕🟠🟣🟥🟧✔️ ☑️ • ‣ → ⁕
 
-# Non Blocking
+# ⏺️ Non Blocking
 
-### ➡️ When using Spring Boot REST API
+### ➡️ When using Spring Boot REST API or DB Call
 
-Use @Async + CompletableFuture.
+- Use @Async + CompletableFuture.
+- Find `D:\Jilani\learning\system design\typeofsystems\communicationpattern\asynchronous\asynchronous-example`
 
 ### ➡️ When doing parallel tasks
 
-Use CompletableFuture.
+- Use CompletableFuture.
+- Find `D:\Jilani\learning\system design\typeofsystems\communicationpattern\asynchronous\asynchronous-example`
 
 ### ➡️ When using Java 21+ and want async-like performance
 
