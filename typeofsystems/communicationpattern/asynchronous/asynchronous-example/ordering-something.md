@@ -1,17 +1,16 @@
 ⏺️ ➡️ 🟦 🔵 🟢🔴⭕🟠🟣🟥🟧✔️ ☑️ • ‣ → ⁕
 
-# ⏺️
+# ⏺️ Order & Payment Example
 
-##### 🟦 Critical
+##### 🟦 Critical Task
 
 - We can use Asyhc to Offload the execution of the task from **Main thread** to the **wroker thread/Thread Pool** but it should be completed before moving ahead so we use `.get()`.
 - It is not truly `async` because we wait using `.get()`, so it behaves like synchronous
 - `.get()` is very much similar to `await` in javascript.
 
 - Example: DB/API call
--
 
-##### 🟦 Non-critical
+##### 🟦 Non-critical Task
 
 - fire-and-forget, no need to use `.get()`
 - Example: Email, logs
