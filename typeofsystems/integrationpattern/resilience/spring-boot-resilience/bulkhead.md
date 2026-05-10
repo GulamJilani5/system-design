@@ -35,6 +35,22 @@
 - Default behavior (Spring Boot + Tomcat)
 - Tomcat thread pool ≈ 200 threads (shared)
 - Every request (payment, inventory, health, etc.) uses the SAME pool
+- Tomcat thread pool, FokJoin thread pool and Custom Executor thread pool all are different
+  - Find `D:\Jilani\learning\java\concurrency-multithreading\multithreading\types-of- threads.md`
+
+```text
+Tomcat Pool
+    Handles HTTP requests
+
+ForkJoin Pool
+    Shared async computations
+
+Custom ExecutorService
+    Your dedicated isolated worker pool
+
+Bulkhead Pattern
+    = isolate failures using separate pools
+```
 
 ##### 🟦 What happens when Payment service is slow?
 
@@ -47,7 +63,7 @@
 
 - Divide resources (threads) per dependency
 - Instead of `One shared pool → 200 threads`
-- Use:
+- Use Different Thread Pool:
 
 ```text
 Payment Pool      → 50 threads
@@ -66,9 +82,9 @@ Health Pool       → 10 threads
   - Health endpoint responds
   - Kubernetes does NOT restart pod
 
-##### 🟦 How to implement in Spring Boot
+### ➡️ How to implement Bulkhead in Spring Boot
 
-- ###### 🔵 Option 1: Using Resilience4j (Recommended)
+##### 🟦 Option 1: Using Resilience4j (Recommended)
 
 ```java
 @Bulkhead(name = "paymentService", type = Bulkhead.Type.THREADPOOL)
@@ -88,14 +104,16 @@ resilience4j.thread-pool-bulkhead:
       queueCapacity: 50
 ```
 
-- ###### 🔵 Option 2: Separate ExecutorService
+##### 🟦 Option 2: Separate ExecutorService
 
 ```java
 ExecutorService paymentExecutor = Executors.newFixedThreadPool(50);
 ExecutorService inventoryExecutor = Executors.newFixedThreadPool(50);
 ```
 
-- ###### 🔵 Option 3: WebClient (Non-blocking - BEST for scaling)
+##### 🟦 Option 3: WebClient (Non-blocking - BEST for scaling)
+
+- Reactive Programming - Spring Web Flux
 - Instead of blocking threads:
 - Uses event-loop (fewer threads, non-blocking)
 
