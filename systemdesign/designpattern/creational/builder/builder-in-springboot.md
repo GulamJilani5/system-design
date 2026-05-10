@@ -115,12 +115,14 @@ public class OrderService {
 
     public OrderResponse createOrder() {
 
-        return OrderResponse.builder()
+        OrderResponse response = OrderResponse.builder()
                 .orderId("ORD-101")
                 .status("SUCCESS")
                 .message("Order created")
                 .amount(5000)
                 .build();
+
+        return response;
     }
 }
 ```
