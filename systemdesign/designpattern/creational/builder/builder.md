@@ -163,7 +163,7 @@ class User {
         // =========================
         public User build() {
 
-            // create final User object
+            // create final User object, 'this' here is 'Builder'
             return new User(this);
         }
     }
@@ -180,6 +180,8 @@ class User {
 ```java
 new User.Builder()
 ```
+
+- Here `new` keyword is not for the **User** class but for the **Builder class**
 
 ```java
 public class UserService {
